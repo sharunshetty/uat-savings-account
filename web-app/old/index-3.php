@@ -5,7 +5,7 @@
  * @developer   : Shivananda Shenoy (Madhukar)
  **/
 
-/** Application Core */
+/** Application Core **/
 require_once(dirname(__FILE__) . '/../app-core/app_auto_load.php');
 
 /** Check User Session */
