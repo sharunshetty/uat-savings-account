@@ -1,0 +1,714 @@
+-- Create table
+create table SBREQ_MASTER
+(
+  sbreq_app_num      VARCHAR2(30) not null,
+  sbreq_mobile_num   VARCHAR2(15),
+  sbreq_email_id     VARCHAR2(255),
+  sbreq_app_status   CHAR(1),
+  sbreq_vkyc_status  CHAR(1),
+  sbreq_cust_title   VARCHAR2(12),
+  sbreq_cust_name    VARCHAR2(150),
+  sbreq_cust_dob     DATE,
+  sbreq_dbt_choice   CHAR(1),
+  sbreq_ekyc_flag    CHAR(1),
+  sbreq_ekyc_ref_num VARCHAR2(50),
+  sbreq_ekyc_name    VARCHAR2(150),
+  sbreq_pan_flag     CHAR(1),
+  sbreq_pan_ref_num  VARCHAR2(50),
+  sbreq_pan_name     VARCHAR2(150),
+  referral_code      VARCHAR2(120),
+  cr_by              VARCHAR2(30),
+  cr_on              DATE,
+  mo_by              VARCHAR2(30),
+  mo_on              DATE,
+  au_by              VARCHAR2(30),
+  au_on              DATE,
+  tba_key            VARCHAR2(25),
+  sbreq_pan_card     VARCHAR2(500),
+  cbs_acc_num        VARCHAR2(150),
+  cbs_sol_id         VARCHAR2(150),
+  cbs_ifsc_code      VARCHAR2(150),
+  cbs_branch_name    VARCHAR2(150),
+  cbs_branch_address VARCHAR2(150)
+)
+tablespace NPCIS_TBLSPC
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table SBREQ_MASTER
+  add primary key (SBREQ_APP_NUM)
+  using index 
+  tablespace NPCIS_TBLSPC
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+
+
+-- Create sequence 
+create sequence SBREQ_MASTER_SEQ
+minvalue 1
+maxvalue 9999999
+start with 1000301
+increment by 1
+cache 50
+cycle;
+
+
+-- Create table
+create table SBREQ_ACCOUNTDATA
+(
+  sbreq_app_num         VARCHAR2(30) not null,
+  sbreq_marital_status  VARCHAR2(50),
+  sbreq_occupation      VARCHAR2(500),
+  sbreq_annual_income   VARCHAR2(500),
+  sbreq_caste           VARCHAR2(500),
+  sbreq_community       VARCHAR2(500),
+  sbreq_nominee_name    VARCHAR2(500),
+  sbreq_relationship    VARCHAR2(500),
+  sbreq_nominee_address VARCHAR2(500),
+  sbreq_city_code       VARCHAR2(500),
+  sbreq_brn_name        VARCHAR2(500),
+  cr_by                 VARCHAR2(50),
+  cr_on                 DATE,
+  mo_by                 VARCHAR2(50),
+  mo_on                 DATE,
+  au_by                 VARCHAR2(50),
+  au_on                 DATE,
+  tba_key               VARCHAR2(25),
+  sbreq_state_code      VARCHAR2(500)
+)
+tablespace NPCIS_TBLSPC
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+
+
+  -- Create table
+create table SBREQ_EKYC_DATA
+(
+  sbreq_app_num     VARCHAR2(30) not null,
+  ekyc_sl           NUMBER(3) not null,
+  sbreq_mobile_num  VARCHAR2(15),
+  ekyc_ref_num      VARCHAR2(50),
+  ekyc_name         VARCHAR2(150),
+  ekyc_dob          VARCHAR2(150),
+  ekyc_gender       VARCHAR2(60),
+  ekyc_care_of_name VARCHAR2(150),
+  ekyc_addr_1       VARCHAR2(150),
+  ekyc_addr_2       VARCHAR2(150),
+  ekyc_addr_3       VARCHAR2(150),
+  ekyc_addr_4       VARCHAR2(150),
+  ekyc_addr_5       VARCHAR2(150),
+  ekyc_addr_6       VARCHAR2(150),
+  ekyc_addr_7       VARCHAR2(150),
+  ekyc_addr_8       VARCHAR2(150),
+  ekyc_addr_9       VARCHAR2(150),
+  ekyc_addr_10      VARCHAR2(150),
+  ekyc_pincode      VARCHAR2(10),
+  ekyc_uid          VARCHAR2(500),
+  ekyc_cust_img     CLOB,
+  cr_by             VARCHAR2(30),
+  cr_on             DATE
+)
+tablespace NPCIS_TBLSPC
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table SBREQ_EKYC_DATA
+  add primary key (SBREQ_APP_NUM, EKYC_SL)
+  using index 
+  tablespace NPCIS_TBLSPC
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+
+
+-- Create table
+create table SBREQ_UPLOADS
+(
+  sbreq_app_num VARCHAR2(30) not null,
+  doc_code      VARCHAR2(500) not null,
+  doc_data      VARCHAR2(300),
+  cr_on         DATE,
+  cr_by         VARCHAR2(50),
+  mo_on         DATE,
+  mo_by         VARCHAR2(50)
+)
+tablespace NPCIS_TBLSPC
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table SBREQ_UPLOADS
+  add primary key (SBREQ_APP_NUM, DOC_CODE)
+  using index 
+  tablespace NPCIS_TBLSPC
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+
+
+-- Create table
+create table CASTE
+(
+  entity_code VARCHAR2(12) not null,
+  caste_code  VARCHAR2(20) not null,
+  caste_descn VARCHAR2(500),
+  cr_by       VARCHAR2(50) not null,
+  cr_on       DATE not null,
+  mo_by       VARCHAR2(50),
+  mo_on       DATE,
+  au_by       VARCHAR2(50),
+  au_on       DATE,
+  tba_key     VARCHAR2(25)
+)
+tablespace TBFES
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table CASTE
+  add constraint PK_CASTE primary key (ENTITY_CODE, CASTE_CODE)
+  using index 
+  tablespace TBFES
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+
+
+  -- Create table
+create table COMMUNITY
+(
+  entity_code     VARCHAR2(12) not null,
+  community_code  VARCHAR2(20) not null,
+  community_descn VARCHAR2(500),
+  cr_by           VARCHAR2(50) not null,
+  cr_on           DATE not null,
+  mo_by           VARCHAR2(50),
+  mo_on           DATE,
+  au_by           VARCHAR2(50),
+  au_on           DATE,
+  tba_key         VARCHAR2(25)
+)
+tablespace TBFES
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table COMMUNITY
+  add constraint PK_COMMUNITY primary key (ENTITY_CODE, COMMUNITY_CODE)
+  using index 
+  tablespace TBFES
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+
+
+-- Create table
+create table OCCUPATIONS
+(
+  occ_code     VARCHAR2(8) not null,
+  occ_descn    VARCHAR2(100),
+  occ_cbs_code VARCHAR2(8)
+)
+tablespace TBFES
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table OCCUPATIONS
+  add primary key (OCC_CODE)
+  using index 
+  tablespace TBFES
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+
+
+-- Create table
+create table NOMINEETYPE
+(
+  nominee_code   VARCHAR2(10) not null,
+  nominee_desc   VARCHAR2(100),
+  nominee_type   CHAR(1) not null,
+  nominee_status CHAR(1)
+)
+tablespace TBFES
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+--Create/Recreate primary, unique and foreign key constraints 
+alter table NOMINEETYPE
+  add constraint PK_NOMINEETYPE primary key (NOMINEE_CODE, NOMINEE_TYPE)
+  using index 
+  tablespace TBFES
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+
+
+-- Create table
+create table STATE
+(
+  entity_code    VARCHAR2(12) not null,
+  state_code     VARCHAR2(50) not null,
+  state_descn    VARCHAR2(100),
+  cr_by          VARCHAR2(50) not null,
+  cr_on          DATE not null,
+  mo_by          VARCHAR2(50),
+  mo_on          DATE,
+  au_by          VARCHAR2(50),
+  au_on          DATE,
+  tba_key        VARCHAR2(25),
+  state_sub_code VARCHAR2(20)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table STATE
+  add constraint STATE_PK primary key (ENTITY_CODE, STATE_CODE)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+
+
+
+-- Create table
+create table INCOMESLAB
+(
+  incslab_code  VARCHAR2(8) not null,
+  incslab_descn VARCHAR2(100)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table INCOMESLAB
+  add primary key (INCSLAB_CODE)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+
+-- Create table
+create table APP_API_TEMPLATES
+(
+  api_channel_code     VARCHAR2(30) not null,
+  api_service_code     VARCHAR2(30) not null,
+  api_desc             VARCHAR2(250),
+  api_format           VARCHAR2(30),
+  api_req_method       VARCHAR2(30),
+  api_endpoint_url     VARCHAR2(500),
+  api_data_replace_flg CHAR(1),
+  api_data_template    CLOB,
+  api_add_params       CLOB,
+  encryption_req_flg   CHAR(1),
+  encryption_method    VARCHAR2(30),
+  bearer_token_req_flg CHAR(1),
+  bearer_token_scope   VARCHAR2(30),
+  bearer_token_url     VARCHAR2(500),
+  cr_by                VARCHAR2(32),
+  cr_on                DATE,
+  mo_by                VARCHAR2(32),
+  mo_on                DATE,
+  tba_key              VARCHAR2(32)
+)
+tablespace NPCIS_TBLSPC
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table APP_API_TEMPLATES
+  add constraint APP_PK primary key (API_CHANNEL_CODE, API_SERVICE_CODE)
+  using index 
+  tablespace NPCIS_TBLSPC
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+
+-- Create table
+create table APP_DATA_SETTINGS
+(
+  option_name   VARCHAR2(80) not null,
+  option_value  VARCHAR2(255),
+  option_status CHAR(1),
+  cr_by         VARCHAR2(12),
+  cr_on         DATE,
+  mo_by         VARCHAR2(12),
+  mo_on         DATE,
+  au_by         VARCHAR2(12),
+  au_on         DATE,
+  tba_key       VARCHAR2(25)
+)
+tablespace NPCIS_TBLSPC
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table APP_DATA_SETTINGS
+  add primary key (OPTION_NAME)
+  using index 
+  tablespace NPCIS_TBLSPC
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+
+
+-- Create table
+create table APP_SMS_TEMPLATES
+(
+  smstpl_code        VARCHAR2(20) not null,
+  smstpl_name        VARCHAR2(30),
+  smstpl_status_code CHAR(3),
+  smstpl_text        VARCHAR2(500),
+  smstpl_enable      CHAR(1),
+  cr_by              VARCHAR2(12),
+  cr_on              DATE,
+  mo_by              VARCHAR2(12),
+  mo_on              DATE
+)
+tablespace NPCIS_TBLSPC
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table APP_SMS_TEMPLATES
+  add primary key (SMSTPL_CODE)
+  using index 
+  tablespace NPCIS_TBLSPC
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+
+
+-- Create table
+create table LOG_EXTAPI_SENT
+(
+  req_num          VARCHAR2(30) not null,
+  req_channel_code VARCHAR2(30),
+  req_service_code VARCHAR2(60),
+  req_raw_data     CLOB,
+  req_data         CLOB,
+  resp_raw_data    CLOB,
+  resp_data        CLOB,
+  cr_by            VARCHAR2(30),
+  cr_on            DATE,
+  mo_by            VARCHAR2(30),
+  mo_on            DATE,
+  au_by            VARCHAR2(30),
+  au_on            DATE,
+  tba_key          VARCHAR2(25)
+)
+tablespace NPCIS_TBLSPC
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table LOG_EXTAPI_SENT
+  add primary key (REQ_NUM)
+  using index 
+  tablespace NPCIS_TBLSPC
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+
+
+  -- Create sequence 
+create sequence LOG_EXTAPI_SENT_SEQ
+minvalue 1
+maxvalue 999999999
+start with 100000001
+increment by 1
+cache 100
+cycle;
+
+
+-- Create table
+create table SEND_ALERT
+(
+  alert_req_id   VARCHAR2(30) not null,
+  alert_type     VARCHAR2(30),
+  alert_to_add   VARCHAR2(255),
+  alert_subject  VARCHAR2(255),
+  alert_body     CLOB,
+  alert_tpl_code VARCHAR2(30),
+  alert_priority NUMBER(3),
+  alert_sent_log VARCHAR2(255),
+  alert_txn_id   VARCHAR2(30),
+  cr_by          VARCHAR2(32),
+  cr_on          DATE,
+  mo_by          VARCHAR2(32),
+  mo_on          DATE
+)
+tablespace NPCIS_TBLSPC
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table SEND_ALERT
+  add primary key (ALERT_REQ_ID)
+  using index 
+  tablespace NPCIS_TBLSPC
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+
+
+  -- Create table
+create table SEND_ALERT_QUEUE
+(
+  alert_req_id     VARCHAR2(30) not null,
+  alert_type       VARCHAR2(30),
+  alert_priority   NUMBER(3),
+  process_lock_flg CHAR(1),
+  cr_by            VARCHAR2(32),
+  cr_on            DATE,
+  mo_by            VARCHAR2(32),
+  mo_on            DATE
+)
+tablespace NPCIS_TBLSPC
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table SEND_ALERT_QUEUE
+  add primary key (ALERT_REQ_ID)
+  using index 
+  tablespace NPCIS_TBLSPC
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+
+-- Create sequence 
+create sequence SEND_ALERT_SEQ
+minvalue 1
+maxvalue 99999999
+start with 10000301
+increment by 1
+cache 50
+cycle;

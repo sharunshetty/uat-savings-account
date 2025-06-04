@@ -1,0 +1,16 @@
+@charset "UTF-8";
+
+/**
+ * @copyright   : (c) 2021 Copyright by LCode Technologies
+ * @author      : Shivananda Shenoy (Madhukar)
+ **/
+
+@import url("framework.css");
+@import url("fonts.css");
+@import url("alerts.css");
+@import url("select2.css");
+@import url("overlay-scrollbars.css");
+@import url("daterangepicker.css");
+@import url("theme.css");
+
+/* Custom CSS */

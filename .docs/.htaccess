@@ -1,0 +1,10 @@
+
+# @copyright   : (c) 2021 Copyright by LCode Technologies
+# @author      : Shivananda Shenoy (Madhukar)
+# @version     : 3.0.0
+
+# Block Files (Hide)
+<Files ~ "\.(txt|doc|docx|json|conf|sql)$">
+    Order allow,deny
+    Deny from all
+</Files>

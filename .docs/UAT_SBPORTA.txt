@@ -1,0 +1,1774 @@
+CREATE TABLE user_roles (
+  ROLE_CODE varchar2(12) NOT NULL,
+  ROLE_DESC varchar2(120) DEFAULT NULL,
+  ROLE_STATUS char(1) DEFAULT NULL,
+  ROLE_REQ_VISIBLE char(1) DEFAULT NULL,
+  CR_BY varchar2(12) DEFAULT NULL,
+  CR_ON date DEFAULT NULL,
+  MO_BY varchar2(12) DEFAULT NULL,
+  MO_ON date DEFAULT NULL,
+  AU_BY varchar2(12) DEFAULT NULL,
+  AU_ON date DEFAULT NULL,
+  TBA_KEY varchar2(25) DEFAULT NULL,
+  PRIMARY KEY (ROLE_CODE)
+);
+
+-- Create table
+create table LOGS_GEOIPTRACKER
+(
+  geoip_vkyc_ref_num      VARCHAR2(200),
+  geoip_vkyc_meeting_code VARCHAR2(200),
+  dtl_sl                  VARCHAR2(20),
+  raw_response            CLOB,
+  cr_by                   VARCHAR2(500),
+  cr_on                   DATE,
+  error_message           VARCHAR2(200)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+
+CREATE TABLE user_roles_dtl (
+  DTL_ROLE_CODE varchar2(12) NOT NULL,
+  DTL_PGM_CODE varchar2(20) NOT NULL,
+  PGM_ACCESS_TYPE char(3) DEFAULT NULL,
+  PRIMARY KEY (DTL_ROLE_CODE,DTL_PGM_CODE)
+);
+
+CREATE TABLE sbreq_accountdata (
+  SBREQ_APP_NUM varchar2(30),
+  SBREQ_PRODUCT_CODE varchar2(20),
+  SBREQ_BRANCH_CODE varchar2(500),
+  SBREQ_TITLE_CODE varchar2(500),
+  SBREQ_RELIGION_CODE varchar2(500),
+  SBREQ_PLACE_OF_BIRTH varchar2(500),
+  SBREQ_LANGUAGE_CODE varchar2(500),
+  SBREQ_OCCUPATION_CODE varchar2(500),
+  SBREQ_COMPANY_CODE varchar2(500),
+  SBREQ_DESIGNATION_CODE varchar2(500),
+  SBREQ_ANNUAL_INCOME varchar2(500),
+  SBREQ_TYPEOF_ACCOMODATION varchar2(500),
+  SBREQ_STATE_CODE varchar2(500),
+  SBREQ_CITY_CODE varchar2(500),
+  SBREQ_INUSURANCE_INFO varchar2(500),
+  SBREQ_BRN_NAME varchar2(500),
+  CR_BY varchar2(50),
+  CR_ON date,
+  MO_BY varchar2(50),
+  MO_ON date,
+  AU_BY varchar2(50),
+  AU_ON date,
+  TBA_KEY varchar2(25),
+  PRIMARY KEY (SBREQ_APP_NUM)
+);
+
+create table MBRN
+(
+  MBRN_ENTITY_NUM          INTEGER(4) not null,
+  MBRN_CODE                INTEGER(6) not null,
+  MBRN_NAME                VARCHAR(50),
+  MBRN_ADDR1               VARCHAR(35),
+  MBRN_ADDR2               VARCHAR(35),
+  MBRN_ADDR3               VARCHAR(35),
+  MBRN_ADDR4               VARCHAR(35),
+  MBRN_ADDR5               VARCHAR(35),
+  MBRN_LOCN_CODE           VARCHAR(6),
+  MBRN_OPENED_ON_DATE      DATETIME,
+  MBRN_ADMIN_UNIT_TYPE     VARCHAR(6),
+  MBRN_PARENT_ADMIN_CODE   INTEGER(6) default 0,
+  MBRN_NUM_EXTN_CTR        INTEGER(3) default 0,
+  MBRN_CATEGORY            VARCHAR(2),
+  MBRN_SIZE                VARCHAR(2),
+  MBRN_AUTH_DEAL_FOREX     CHAR(1),
+  MBRN_AUTH_FOR_FCDEP      CHAR(1) default 0,
+  MBRN_MICR_CODE           INTEGER(6) default 0,
+  MBRN_MAINBRN_IN_LOCN     CHAR(1) default 0,
+  MBRN_LINK_SERV_MAIN_BRN  INTEGER(6) default 0,
+  MBRN_DD_ISSUE_ALLOWED    CHAR(1) default 0,
+  MBRN_TT_ISSUE_ALLOWED    CHAR(1) default 0,
+  MBRN_SPLIT_PREMISES      CHAR(1) default 0,
+  MBRN_NUM_SPLIT_PREMISES  INTEGER(2) default 0,
+  MBRN_LOCAL_CLG_MEMBER    CHAR(1) default 0,
+  MBRN_NATNL_CLG_MEMBER    CHAR(1) default 0,
+  MBRN_HIGH_VAL_CLG_MEMBER CHAR(1) default 0,
+  MBRN_NUM_OFFICERS_AVL    INTEGER(2) default 0,
+  MBRN_IFSC_CODE           VARCHAR(15),
+  MBRN_CLG_BASED_ON_MICR   CHAR(1) default 0,
+  MBRN_CASH_MGMT_BRANCH    CHAR(1) default 0,
+  MBRN_RTGS_DEP_ENABLED    CHAR(1) default 0,
+  MBRN_BASE_CURR_CODE      VARCHAR(3),
+  MBRN_TEL_NO1             VARCHAR(15),
+  MBRN_TEL_NO2             VARCHAR(15),
+  MBRN_TEL_NO3             VARCHAR(15),
+  MBRN_TEL_NO4             VARCHAR(15),
+  MBRN_TEL_NO5             VARCHAR(15),
+  MBRN_TEL_NO6             VARCHAR(15),
+  MBRN_FAX_NO1             VARCHAR(15),
+  MBRN_FAX_NO2             VARCHAR(15),
+  MBRN_FAX_NO3             VARCHAR(15),
+  MBRN_FAX_NO4             VARCHAR(15),
+  MBRN_FAX_NO5             VARCHAR(15),
+  MBRN_FAX_NO6             VARCHAR(15),
+  MBRN_EMAIL_ADDR1         VARCHAR(50),
+  MBRN_EMAIL_ADDR2         VARCHAR(50),
+  MBRN_SWIFT_BIC_CODE      VARCHAR(12),
+  MBRN_WEEK_HOL_MON        CHAR(1) default 0,
+  MBRN_WEEK_HOL_TUE        CHAR(1) default 0,
+  MBRN_WEEK_HOL_WED        CHAR(1) default 0,
+  MBRN_WEEK_HOL_THU        CHAR(1) default 0,
+  MBRN_WEEK_HOL_FRI        CHAR(1) default 0,
+  MBRN_WEEK_HOL_SAT        CHAR(1) default 0,
+  MBRN_WEEK_HOL_SUN        CHAR(1) default 0,
+  MBRN_HALF_WORK_MON       CHAR(1) default 0,
+  MBRN_HALF_WORK_TUE       CHAR(1) default 0,
+  MBRN_HALF_WORK_WED       CHAR(1) default 0,
+  MBRN_HALF_WORK_THU       CHAR(1) default 0,
+  MBRN_HALF_WORK_FRI       CHAR(1) default 0,
+  MBRN_HALF_WORK_SAT       CHAR(1) default 0,
+  MBRN_HALF_WORK_SUN       CHAR(1) default 0,
+  MBRN_AUTH_DLR_CODE       VARCHAR(20),
+  MBRN_BSR_CODE            VARCHAR(7),
+  MBRN_STATUS_FLG          CHAR(1),
+  MBRN_CLOSURE_DATE        DATETIME,
+  MBRN_ENTD_BY             VARCHAR(8) not null,
+  MBRN_ENTD_ON             DATETIME not null,
+  MBRN_LAST_MOD_BY         VARCHAR(8),
+  MBRN_LAST_MOD_ON         DATETIME,
+  MBRN_AUTH_BY             VARCHAR(8),
+  MBRN_AUTH_ON             DATETIME,
+  TBA_MAIN_KEY             VARCHAR(25)
+)
+
+
+-- Create table
+create table SBREQ_MASTER
+(
+  sbreq_app_num      VARCHAR2(30) not null,
+  sbreq_mobile_num   VARCHAR2(15),
+  sbreq_email_id     VARCHAR2(255),
+  sbreq_app_status   CHAR(1),
+  sbreq_vkyc_status  CHAR(1),
+  sbreq_cust_title   VARCHAR2(12),
+  sbreq_cust_name    VARCHAR2(150),
+  sbreq_cust_dob     DATE,
+  sbreq_dbt_choice   CHAR(1),
+  sbreq_ekyc_flag    CHAR(1),
+  sbreq_ekyc_ref_num VARCHAR2(50),
+  sbreq_ekyc_name    VARCHAR2(150),
+  sbreq_pan_flag     CHAR(1),
+  sbreq_pan_ref_num  VARCHAR2(50),
+  sbreq_pan_name     VARCHAR2(150),
+  referral_code      VARCHAR2(120),
+  cr_by              VARCHAR2(30),
+  cr_on              DATE,
+  mo_by              VARCHAR2(30),
+  mo_on              DATE,
+  au_by              VARCHAR2(30),
+  au_on              DATE,
+  tba_key            VARCHAR2(25),
+  sbreq_pan_card     VARCHAR2(500),
+  cbs_acc_num        VARCHAR2(150),
+  cbs_sol_id         VARCHAR2(150),
+  cbs_ifsc_code      VARCHAR2(150),
+  cbs_branch_name    VARCHAR2(150),
+  cbs_branch_address VARCHAR2(150)
+)
+tablespace NPCIS_TBLSPC
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table SBREQ_MASTER
+  add primary key (SBREQ_APP_NUM)
+  using index 
+  tablespace NPCIS_TBLSPC
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+
+
+-- Create sequence 
+create sequence SBREQ_MASTER_SEQ
+minvalue 1
+maxvalue 9999999
+start with 1000301
+increment by 1
+cache 50
+cycle;
+
+
+-- Create table
+create table SBREQ_ACCOUNTDATA
+(
+  sbreq_app_num         VARCHAR2(30) not null,
+  sbreq_marital_status  VARCHAR2(50),
+  sbreq_occupation      VARCHAR2(500),
+  sbreq_annual_income   VARCHAR2(500),
+  sbreq_caste           VARCHAR2(500),
+  sbreq_community       VARCHAR2(500),
+  sbreq_nominee_name    VARCHAR2(500),
+  sbreq_relationship    VARCHAR2(500),
+  sbreq_nominee_address VARCHAR2(500),
+  sbreq_city_code       VARCHAR2(500),
+  sbreq_brn_name        VARCHAR2(500),
+  cr_by                 VARCHAR2(50),
+  cr_on                 DATE,
+  mo_by                 VARCHAR2(50),
+  mo_on                 DATE,
+  au_by                 VARCHAR2(50),
+  au_on                 DATE,
+  tba_key               VARCHAR2(25),
+  sbreq_state_code      VARCHAR2(500)
+)
+tablespace NPCIS_TBLSPC
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+
+
+ -- Create table
+create table SBREQ_EKYC_DATA
+(
+  sbreq_app_num     VARCHAR2(30) not null,
+  ekyc_sl           NUMBER(3) not null,
+  sbreq_mobile_num  VARCHAR2(15),
+  ekyc_ref_num      VARCHAR2(50),
+  ekyc_name         VARCHAR2(150),
+  ekyc_dob          VARCHAR2(150),
+  ekyc_gender       VARCHAR2(60),
+  ekyc_care_of_name VARCHAR2(150),
+  ekyc_addr_1       VARCHAR2(150),
+  ekyc_addr_2       VARCHAR2(150),
+  ekyc_addr_3       VARCHAR2(150),
+  ekyc_addr_4       VARCHAR2(150),
+  ekyc_addr_5       VARCHAR2(150),
+  ekyc_addr_6       VARCHAR2(150),
+  ekyc_addr_7       VARCHAR2(150),
+  ekyc_addr_8       VARCHAR2(150),
+  ekyc_addr_9       VARCHAR2(150),
+  ekyc_addr_10      VARCHAR2(150),
+  ekyc_pincode      VARCHAR2(10),
+  ekyc_uid          VARCHAR2(500),
+  ekyc_cust_img     CLOB,
+  cr_by             VARCHAR2(30),
+  cr_on             DATE
+)
+tablespace NPCIS_TBLSPC
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table SBREQ_EKYC_DATA
+  add primary key (SBREQ_APP_NUM, EKYC_SL)
+  using index 
+  tablespace NPCIS_TBLSPC
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+
+
+-- Create table
+create table SBREQ_UPLOADS
+(
+  sbreq_app_num VARCHAR2(30) not null,
+  doc_code      VARCHAR2(500) not null,
+  doc_data      VARCHAR2(300),
+  cr_on         DATE,
+  cr_by         VARCHAR2(50),
+  mo_on         DATE,
+  mo_by         VARCHAR2(50)
+)
+tablespace NPCIS_TBLSPC
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table SBREQ_UPLOADS
+  add primary key (SBREQ_APP_NUM, DOC_CODE)
+  using index 
+  tablespace NPCIS_TBLSPC
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+
+
+-- Create table
+create table CASTE
+(
+  entity_code VARCHAR2(12) not null,
+  caste_code  VARCHAR2(20) not null,
+  caste_descn VARCHAR2(500),
+  cr_by       VARCHAR2(50) not null,
+  cr_on       DATE not null,
+  mo_by       VARCHAR2(50),
+  mo_on       DATE,
+  au_by       VARCHAR2(50),
+  au_on       DATE,
+  tba_key     VARCHAR2(25)
+)
+tablespace TBFES
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table CASTE
+  add constraint PK_CASTE primary key (ENTITY_CODE, CASTE_CODE)
+  using index 
+  tablespace TBFES
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+
+
+  -- Create table
+create table COMMUNITY
+(
+  entity_code     VARCHAR2(12) not null,
+  community_code  VARCHAR2(20) not null,
+  community_descn VARCHAR2(500),
+  cr_by           VARCHAR2(50) not null,
+  cr_on           DATE not null,
+  mo_by           VARCHAR2(50),
+  mo_on           DATE,
+  au_by           VARCHAR2(50),
+  au_on           DATE,
+  tba_key         VARCHAR2(25)
+)
+tablespace TBFES
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table COMMUNITY
+  add constraint PK_COMMUNITY primary key (ENTITY_CODE, COMMUNITY_CODE)
+  using index 
+  tablespace TBFES
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+
+
+-- Create table
+create table OCCUPATIONS
+(
+  occ_code     VARCHAR2(8) not null,
+  occ_descn    VARCHAR2(100),
+  occ_cbs_code VARCHAR2(8)
+)
+tablespace TBFES
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table OCCUPATIONS
+  add primary key (OCC_CODE)
+  using index 
+  tablespace TBFES
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+
+
+-- Create table
+create table NOMINEETYPE
+(
+  nominee_code   VARCHAR2(10) not null,
+  nominee_desc   VARCHAR2(100),
+  nominee_type   CHAR(1) not null,
+  nominee_status CHAR(1)
+)
+tablespace TBFES
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+--Create/Recreate primary, unique and foreign key constraints 
+alter table NOMINEETYPE
+  add constraint PK_NOMINEETYPE primary key (NOMINEE_CODE, NOMINEE_TYPE)
+  using index 
+  tablespace TBFES
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+
+
+-- Create table
+create table STATE
+(
+  entity_code    VARCHAR2(12) not null,
+  state_code     VARCHAR2(50) not null,
+  state_descn    VARCHAR2(100),
+  cr_by          VARCHAR2(50) not null,
+  cr_on          DATE not null,
+  mo_by          VARCHAR2(50),
+  mo_on          DATE,
+  au_by          VARCHAR2(50),
+  au_on          DATE,
+  tba_key        VARCHAR2(25),
+  state_sub_code VARCHAR2(20)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table STATE
+  add constraint STATE_PK primary key (ENTITY_CODE, STATE_CODE)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+
+
+
+-- Create table
+create table INCOMESLAB
+(
+  incslab_code  VARCHAR2(8) not null,
+  incslab_descn VARCHAR2(100)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table INCOMESLAB
+  add primary key (INCSLAB_CODE)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+
+-- Create table
+create table APP_API_TEMPLATES
+(
+  api_channel_code     VARCHAR2(30) not null,
+  api_service_code     VARCHAR2(30) not null,
+  api_desc             VARCHAR2(250),
+  api_format           VARCHAR2(30),
+  api_req_method       VARCHAR2(30),
+  api_endpoint_url     VARCHAR2(500),
+  api_data_replace_flg CHAR(1),
+  api_data_template    CLOB,
+  api_add_params       CLOB,
+  encryption_req_flg   CHAR(1),
+  encryption_method    VARCHAR2(30),
+  bearer_token_req_flg CHAR(1),
+  bearer_token_scope   VARCHAR2(30),
+  bearer_token_url     VARCHAR2(500),
+  cr_by                VARCHAR2(32),
+  cr_on                DATE,
+  mo_by                VARCHAR2(32),
+  mo_on                DATE,
+  tba_key              VARCHAR2(32)
+)
+tablespace NPCIS_TBLSPC
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table APP_API_TEMPLATES
+  add constraint APP_PK primary key (API_CHANNEL_CODE, API_SERVICE_CODE)
+  using index 
+  tablespace NPCIS_TBLSPC
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+
+-- Create table
+create table APP_DATA_SETTINGS
+(
+  option_name   VARCHAR2(80) not null,
+  option_value  VARCHAR2(255),
+  option_status CHAR(1),
+  cr_by         VARCHAR2(12),
+  cr_on         DATE,
+  mo_by         VARCHAR2(12),
+  mo_on         DATE,
+  au_by         VARCHAR2(12),
+  au_on         DATE,
+  tba_key       VARCHAR2(25)
+)
+tablespace NPCIS_TBLSPC
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table APP_DATA_SETTINGS
+  add primary key (OPTION_NAME)
+  using index 
+  tablespace NPCIS_TBLSPC
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+
+
+-- Create table
+create table APP_SMS_TEMPLATES
+(
+  smstpl_code        VARCHAR2(20) not null,
+  smstpl_name        VARCHAR2(30),
+  smstpl_status_code CHAR(3),
+  smstpl_text        VARCHAR2(500),
+  smstpl_enable      CHAR(1),
+  cr_by              VARCHAR2(12),
+  cr_on              DATE,
+  mo_by              VARCHAR2(12),
+  mo_on              DATE
+)
+tablespace NPCIS_TBLSPC
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table APP_SMS_TEMPLATES
+  add primary key (SMSTPL_CODE)
+  using index 
+  tablespace NPCIS_TBLSPC
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+
+
+-- Create table
+create table LOG_EXTAPI_SENT
+(
+  req_num          VARCHAR2(30) not null,
+  req_channel_code VARCHAR2(30),
+  req_service_code VARCHAR2(60),
+  req_raw_data     CLOB,
+  req_data         CLOB,
+  resp_raw_data    CLOB,
+  resp_data        CLOB,
+  cr_by            VARCHAR2(30),
+  cr_on            DATE,
+  mo_by            VARCHAR2(30),
+  mo_on            DATE,
+  au_by            VARCHAR2(30),
+  au_on            DATE,
+  tba_key          VARCHAR2(25)
+)
+tablespace NPCIS_TBLSPC
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table LOG_EXTAPI_SENT
+  add primary key (REQ_NUM)
+  using index 
+  tablespace NPCIS_TBLSPC
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+
+
+  -- Create sequence 
+create sequence LOG_EXTAPI_SENT_SEQ
+minvalue 1
+maxvalue 99999999
+start with 10000901
+increment by 1
+cache 100
+cycle;
+
+
+-- Create table
+create table SEND_ALERT
+(
+  alert_req_id   VARCHAR2(30) not null,
+  alert_type     VARCHAR2(30),
+  alert_to_add   VARCHAR2(255),
+  alert_subject  VARCHAR2(255),
+  alert_body     CLOB,
+  alert_tpl_code VARCHAR2(30),
+  alert_priority NUMBER(3),
+  alert_sent_log VARCHAR2(255),
+  alert_txn_id   VARCHAR2(30),
+  cr_by          VARCHAR2(32),
+  cr_on          DATE,
+  mo_by          VARCHAR2(32),
+  mo_on          DATE
+)
+tablespace NPCIS_TBLSPC
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table SEND_ALERT
+  add primary key (ALERT_REQ_ID)
+  using index 
+  tablespace NPCIS_TBLSPC
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+
+
+
+  -- Create table
+create table SEND_ALERT_QUEUE
+(
+  alert_req_id     VARCHAR2(30) not null,
+  alert_type       VARCHAR2(30),
+  alert_priority   NUMBER(3),
+  process_lock_flg CHAR(1),
+  cr_by            VARCHAR2(32),
+  cr_on            DATE,
+  mo_by            VARCHAR2(32),
+  mo_on            DATE
+)
+tablespace NPCIS_TBLSPC
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table SEND_ALERT_QUEUE
+  add primary key (ALERT_REQ_ID)
+  using index 
+  tablespace NPCIS_TBLSPC
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+
+-- Create sequence 
+create sequence SEND_ALERT_SEQ
+minvalue 1
+maxvalue 99999999
+start with 10000301
+increment by 1
+cache 50
+cycle;
+
+
+-- Create table
+create table LOG_OTPREQ
+(
+  otp_req_id          VARCHAR2(30) not null,
+  otp_pgmcode         VARCHAR2(12),
+  otp_mobile_num      VARCHAR2(15),
+  otp_email_id        VARCHAR2(120),
+  sms_verified_flag   CHAR(1),
+  sms_verified_on     DATE,
+  sms_resent_count    NUMBER(3),
+  sms_sent_resp       VARCHAR2(255),
+  email_verified_flag CHAR(1),
+  email_verified_on   DATE,
+  email_resent_count  NUMBER(3),
+  email_sent_resp     VARCHAR2(255),
+  req_data            CLOB,
+  gen_platform        VARCHAR2(60),
+  gen_browser_name    VARCHAR2(60),
+  gen_browser_ver     VARCHAR2(60),
+  gen_ip_address      VARCHAR2(255),
+  cr_by               VARCHAR2(30),
+  cr_on               DATE
+);
+tablespace NPCIS_TBLSPC
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table LOG_OTPREQ
+  add primary key (OTP_REQ_ID)
+  using index 
+  tablespace NPCIS_TBLSPC
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+
+------------ INSERT SCRIPTS ----------------------------
+
+insert into occupations (OCC_CODE, OCC_DESCN, OCC_CBS_CODE)
+values ('00001', 'AGRICULTURE & RELATED SERVICE ACTIVITIES', '00001');
+
+insert into occupations (OCC_CODE, OCC_DESCN, OCC_CBS_CODE)
+values ('00002', 'FISHING & RELATED ACTIVITIES', '00002');
+
+insert into occupations (OCC_CODE, OCC_DESCN, OCC_CBS_CODE)
+values ('00003', 'MINING & RELATED ACTIVITIES', '00003');
+
+insert into occupations (OCC_CODE, OCC_DESCN, OCC_CBS_CODE)
+values ('00004', 'MANUFACTURING & RELATED ACTIVITIES', '00004');
+
+insert into occupations (OCC_CODE, OCC_DESCN, OCC_CBS_CODE)
+values ('00005', 'ELECTICITY,GAS,WATER SUPPY & RELATED ACTIVITIES', '00005');
+
+insert into occupations (OCC_CODE, OCC_DESCN, OCC_CBS_CODE)
+values ('00006', 'CONSTRUCTION & RELATED ACTIVITIES', '00006');
+
+insert into occupations (OCC_CODE, OCC_DESCN, OCC_CBS_CODE)
+values ('00007', 'WHOLESALE , RETAIL BUSINESS & RELATED ACTIVITIES', '00007');
+
+insert into occupations (OCC_CODE, OCC_DESCN, OCC_CBS_CODE)
+values ('00008', 'HOTEL,RESTAURANT & RELATED ACTIVITIES', '00008');
+
+insert into occupations (OCC_CODE, OCC_DESCN, OCC_CBS_CODE)
+values ('00009', 'TRANSPORT,POST, TELECOMMUNICATION & RELATED ACTIVI', '00009');
+
+insert into occupations (OCC_CODE, OCC_DESCN, OCC_CBS_CODE)
+values ('00010', 'FINANCIAL INTERMEDIATION & RELATED ACTIVITIES', '00010');
+
+insert into occupations (OCC_CODE, OCC_DESCN, OCC_CBS_CODE)
+values ('00011', 'REAL ESTATE,RENTING AND BUSINESS ACTIVITIES', '00011');
+
+insert into occupations (OCC_CODE, OCC_DESCN, OCC_CBS_CODE)
+values ('00012', 'PUBLIC ADMINISTRATION,DEFENCE,SOCIAL SECURITY', '00012');
+
+insert into occupations (OCC_CODE, OCC_DESCN, OCC_CBS_CODE)
+values ('00013', 'EDU-SERVICES-SCH/COLLEGES/UNIVERSITIES/COMM-INSTIT', '00013');
+
+insert into occupations (OCC_CODE, OCC_DESCN, OCC_CBS_CODE)
+values ('00014', 'MEDICAL,HEALTH & SOCIAL WORK', '00014');
+
+insert into occupations (OCC_CODE, OCC_DESCN, OCC_CBS_CODE)
+values ('00015', 'OTH COMMUNITY,SOCIAL & PERSONAL SERVICE ACTIVITIES', '00015');
+
+insert into occupations (OCC_CODE, OCC_DESCN, OCC_CBS_CODE)
+values ('00016', 'MISCELLANEOUS & OTHERS', '00016');
+
+insert into occupations (OCC_CODE, OCC_DESCN, OCC_CBS_CODE)
+values ('00017', 'STUDENT', '00017');
+
+insert into occupations (OCC_CODE, OCC_DESCN, OCC_CBS_CODE)
+values ('00018', 'SALARIED PERSON', '00018');
+
+insert into occupations (OCC_CODE, OCC_DESCN, OCC_CBS_CODE)
+values ('00019', 'HOMEMAKER/HOUSEWIFE', '00019');
+
+insert into occupations (OCC_CODE, OCC_DESCN, OCC_CBS_CODE)
+values ('00020', 'RETIRED PERSON', '00020');
+
+---------------------------------------------------------------
+
+insert into incomeslab (INCSLAB_CODE, INCSLAB_DESCN)
+values ('01', '<1,00,000');
+
+insert into incomeslab (INCSLAB_CODE, INCSLAB_DESCN)
+values ('02', '1,00,000 to 5,00,000');
+
+insert into incomeslab (INCSLAB_CODE, INCSLAB_DESCN)
+values ('03', '5,00,000 to 10,00,000');
+
+insert into incomeslab (INCSLAB_CODE, INCSLAB_DESCN)
+values ('04', '>10,00,000');
+
+-------------------------------------------------------------------
+
+
+insert into community (ENTITY_CODE, COMMUNITY_CODE, COMMUNITY_DESCN, CR_BY, CR_ON, MO_BY, MO_ON, AU_BY, AU_ON, TBA_KEY)
+values ('1', 'JAIN', 'Jain', 'SYSTEM', to_date('26-10-2020', 'dd-mm-yyyy'), null, null, null, null, null);
+
+insert into community (ENTITY_CODE, COMMUNITY_CODE, COMMUNITY_DESCN, CR_BY, CR_ON, MO_BY, MO_ON, AU_BY, AU_ON, TBA_KEY)
+values ('1', 'MUSLI', 'Muslim', 'SYSTEM', to_date('26-10-2020', 'dd-mm-yyyy'), null, null, null, null, null);
+
+insert into community (ENTITY_CODE, COMMUNITY_CODE, COMMUNITY_DESCN, CR_BY, CR_ON, MO_BY, MO_ON, AU_BY, AU_ON, TBA_KEY)
+values ('1', 'NEO', 'Neo Buddhist', 'SYSTEM', to_date('26-10-2020', 'dd-mm-yyyy'), null, null, null, null, null);
+
+insert into community (ENTITY_CODE, COMMUNITY_CODE, COMMUNITY_DESCN, CR_BY, CR_ON, MO_BY, MO_ON, AU_BY, AU_ON, TBA_KEY)
+values ('1', 'PARSI', 'Parsi', 'SYSTEM', to_date('26-10-2020', 'dd-mm-yyyy'), null, null, null, null, null);
+
+insert into community (ENTITY_CODE, COMMUNITY_CODE, COMMUNITY_DESCN, CR_BY, CR_ON, MO_BY, MO_ON, AU_BY, AU_ON, TBA_KEY)
+values ('1', 'SIKHS', 'Sikh', 'SYSTEM', to_date('26-10-2020', 'dd-mm-yyyy'), null, null, null, null, null);
+
+insert into community (ENTITY_CODE, COMMUNITY_CODE, COMMUNITY_DESCN, CR_BY, CR_ON, MO_BY, MO_ON, AU_BY, AU_ON, TBA_KEY)
+values ('1', 'ZORAS', 'Zorastrian', 'SYSTEM', to_date('26-10-2020', 'dd-mm-yyyy'), null, null, null, null, null);
+
+insert into community (ENTITY_CODE, COMMUNITY_CODE, COMMUNITY_DESCN, CR_BY, CR_ON, MO_BY, MO_ON, AU_BY, AU_ON, TBA_KEY)
+values ('1', 'BUDHI', 'Buddhist', 'SYSTEM', to_date('26-10-2020', 'dd-mm-yyyy'), null, null, null, null, null);
+
+insert into community (ENTITY_CODE, COMMUNITY_CODE, COMMUNITY_DESCN, CR_BY, CR_ON, MO_BY, MO_ON, AU_BY, AU_ON, TBA_KEY)
+values ('1', 'CHRIS', 'Christian', 'SYSTEM', to_date('26-10-2020', 'dd-mm-yyyy'), null, null, null, null, null);
+
+insert into community (ENTITY_CODE, COMMUNITY_CODE, COMMUNITY_DESCN, CR_BY, CR_ON, MO_BY, MO_ON, AU_BY, AU_ON, TBA_KEY)
+values ('1', 'HINDU', 'Hindu', 'SYSTEM', to_date('26-10-2020', 'dd-mm-yyyy'), null, null, null, null, null);
+
+insert into community (ENTITY_CODE, COMMUNITY_CODE, COMMUNITY_DESCN, CR_BY, CR_ON, MO_BY, MO_ON, AU_BY, AU_ON, TBA_KEY)
+values ('1', 'MIGRD', 'Migration Default', 'SYSTEM', to_date('26-10-2020', 'dd-mm-yyyy'), null, null, null, null, null);
+
+insert into community (ENTITY_CODE, COMMUNITY_CODE, COMMUNITY_DESCN, CR_BY, CR_ON, MO_BY, MO_ON, AU_BY, AU_ON, TBA_KEY)
+values ('1', 'NA', 'Not applicable', 'SYSTEM', to_date('26-10-2020', 'dd-mm-yyyy'), null, null, null, null, null);
+
+insert into community (ENTITY_CODE, COMMUNITY_CODE, COMMUNITY_DESCN, CR_BY, CR_ON, MO_BY, MO_ON, AU_BY, AU_ON, TBA_KEY)
+values ('1', 'OTHERS', 'Others', 'SYSTEM', to_date('26-10-2020', 'dd-mm-yyyy'), null, null, null, null, null);
+
+----------------------------------------------------------------------------------------------------------------------------
+
+insert into nomineetype (NOMINEE_CODE, NOMINEE_DESC, NOMINEE_TYPE, NOMINEE_STATUS)
+values ('BIL', 'BROTHER IN LAW', 'M', '1');
+
+insert into nomineetype (NOMINEE_CODE, NOMINEE_DESC, NOMINEE_TYPE, NOMINEE_STATUS)
+values ('BRO', 'BROTHER', 'M', '1');
+
+insert into nomineetype (NOMINEE_CODE, NOMINEE_DESC, NOMINEE_TYPE, NOMINEE_STATUS)
+values ('DAU', 'DAUGHTER', 'M', '1');
+
+insert into nomineetype (NOMINEE_CODE, NOMINEE_DESC, NOMINEE_TYPE, NOMINEE_STATUS)
+values ('FAT', 'FATHER', 'M', '1');
+
+insert into nomineetype (NOMINEE_CODE, NOMINEE_DESC, NOMINEE_TYPE, NOMINEE_STATUS)
+values ('FIL', 'FATHER IN LAW', 'M', '1');
+
+insert into nomineetype (NOMINEE_CODE, NOMINEE_DESC, NOMINEE_TYPE, NOMINEE_STATUS)
+values ('GDO', 'GRAND DAUGHTER', 'M', '1');
+
+insert into nomineetype (NOMINEE_CODE, NOMINEE_DESC, NOMINEE_TYPE, NOMINEE_STATUS)
+values ('GF', 'GRAND FATHER', 'M', '1');
+
+insert into nomineetype (NOMINEE_CODE, NOMINEE_DESC, NOMINEE_TYPE, NOMINEE_STATUS)
+values ('GM', 'GRAND MOTHER', 'M', '1');
+
+insert into nomineetype (NOMINEE_CODE, NOMINEE_DESC, NOMINEE_TYPE, NOMINEE_STATUS)
+values ('GO', 'GRAND SON', 'M', '1');
+
+insert into nomineetype (NOMINEE_CODE, NOMINEE_DESC, NOMINEE_TYPE, NOMINEE_STATUS)
+values ('HUS', 'HUSBAND', 'M', '1');
+
+insert into nomineetype (NOMINEE_CODE, NOMINEE_DESC, NOMINEE_TYPE, NOMINEE_STATUS)
+values ('MIL', 'MOTHER IN LAW', 'M', '1');
+
+insert into nomineetype (NOMINEE_CODE, NOMINEE_DESC, NOMINEE_TYPE, NOMINEE_STATUS)
+values ('MOT', 'MOTHER', 'M', '1');
+
+insert into nomineetype (NOMINEE_CODE, NOMINEE_DESC, NOMINEE_TYPE, NOMINEE_STATUS)
+values ('OTH', 'OTHERS', 'M', '1');
+
+insert into nomineetype (NOMINEE_CODE, NOMINEE_DESC, NOMINEE_TYPE, NOMINEE_STATUS)
+values ('SELF', 'SELF', 'M', '1');
+
+insert into nomineetype (NOMINEE_CODE, NOMINEE_DESC, NOMINEE_TYPE, NOMINEE_STATUS)
+values ('SIL', 'SISTER IN LAW', 'M', '1');
+
+insert into nomineetype (NOMINEE_CODE, NOMINEE_DESC, NOMINEE_TYPE, NOMINEE_STATUS)
+values ('SIS', 'SISTER', 'M', '1');
+
+insert into nomineetype (NOMINEE_CODE, NOMINEE_DESC, NOMINEE_TYPE, NOMINEE_STATUS)
+values ('SON', 'SON', 'M', '1');
+
+insert into nomineetype (NOMINEE_CODE, NOMINEE_DESC, NOMINEE_TYPE, NOMINEE_STATUS)
+values ('WIF', 'WIFE', 'M', '1');
+
+------------------------------------------------------------------------------------------
+
+
+insert into state (ENTITY_CODE, STATE_CODE, STATE_DESCN, CR_BY, CR_ON, MO_BY, MO_ON, AU_BY, AU_ON, TBA_KEY, STATE_SUB_CODE)
+values ('1', 'AN', 'Andaman and Nicobar Islands', 'LCODE', to_date('07-04-2015 10:53:58', 'dd-mm-yyyy hh24:mi:ss'), null, null, 'LCODE', to_date('07-04-2015 10:53:58', 'dd-mm-yyyy hh24:mi:ss'), null, '35');
+
+insert into state (ENTITY_CODE, STATE_CODE, STATE_DESCN, CR_BY, CR_ON, MO_BY, MO_ON, AU_BY, AU_ON, TBA_KEY, STATE_SUB_CODE)
+values ('1', 'AP', 'Andhra Pradesh', 'LCODE', to_date('07-04-2015 10:53:58', 'dd-mm-yyyy hh24:mi:ss'), null, null, 'LCODE', to_date('07-04-2015 10:53:58', 'dd-mm-yyyy hh24:mi:ss'), null, '28');
+
+insert into state (ENTITY_CODE, STATE_CODE, STATE_DESCN, CR_BY, CR_ON, MO_BY, MO_ON, AU_BY, AU_ON, TBA_KEY, STATE_SUB_CODE)
+values ('1', 'AR', 'Arunachal Pradesh', 'LCODE', to_date('07-04-2015 10:53:58', 'dd-mm-yyyy hh24:mi:ss'), null, null, 'LCODE', to_date('07-04-2015 10:53:58', 'dd-mm-yyyy hh24:mi:ss'), null, '12');
+
+insert into state (ENTITY_CODE, STATE_CODE, STATE_DESCN, CR_BY, CR_ON, MO_BY, MO_ON, AU_BY, AU_ON, TBA_KEY, STATE_SUB_CODE)
+values ('1', 'AS', 'Assam', 'LCODE', to_date('07-04-2015 10:53:58', 'dd-mm-yyyy hh24:mi:ss'), null, null, 'LCODE', to_date('07-04-2015 10:53:58', 'dd-mm-yyyy hh24:mi:ss'), null, '18');
+
+insert into state (ENTITY_CODE, STATE_CODE, STATE_DESCN, CR_BY, CR_ON, MO_BY, MO_ON, AU_BY, AU_ON, TBA_KEY, STATE_SUB_CODE)
+values ('1', 'BR', 'Bihar', 'LCODE', to_date('07-04-2015 10:53:58', 'dd-mm-yyyy hh24:mi:ss'), null, null, 'LCODE', to_date('07-04-2015 10:53:58', 'dd-mm-yyyy hh24:mi:ss'), null, '10');
+
+insert into state (ENTITY_CODE, STATE_CODE, STATE_DESCN, CR_BY, CR_ON, MO_BY, MO_ON, AU_BY, AU_ON, TBA_KEY, STATE_SUB_CODE)
+values ('1', 'CH', 'Chandigarh', 'LCODE', to_date('07-04-2015 10:53:58', 'dd-mm-yyyy hh24:mi:ss'), null, null, 'LCODE', to_date('07-04-2015 10:53:58', 'dd-mm-yyyy hh24:mi:ss'), null, '4');
+
+insert into state (ENTITY_CODE, STATE_CODE, STATE_DESCN, CR_BY, CR_ON, MO_BY, MO_ON, AU_BY, AU_ON, TBA_KEY, STATE_SUB_CODE)
+values ('1', 'CG', 'Chhattisgarh', 'LCODE', to_date('07-04-2015 10:53:58', 'dd-mm-yyyy hh24:mi:ss'), null, null, 'LCODE', to_date('07-04-2015 10:53:58', 'dd-mm-yyyy hh24:mi:ss'), null, '22');
+
+insert into state (ENTITY_CODE, STATE_CODE, STATE_DESCN, CR_BY, CR_ON, MO_BY, MO_ON, AU_BY, AU_ON, TBA_KEY, STATE_SUB_CODE)
+values ('1', 'DD', 'Dadra and Nagar Haveli', 'LCODE', to_date('07-04-2015 10:53:58', 'dd-mm-yyyy hh24:mi:ss'), null, null, 'LCODE', to_date('07-04-2015 10:53:58', 'dd-mm-yyyy hh24:mi:ss'), null, '26');
+
+insert into state (ENTITY_CODE, STATE_CODE, STATE_DESCN, CR_BY, CR_ON, MO_BY, MO_ON, AU_BY, AU_ON, TBA_KEY, STATE_SUB_CODE)
+values ('1', 'DN', 'Daman and Diu', 'LCODE', to_date('07-04-2015 10:53:58', 'dd-mm-yyyy hh24:mi:ss'), null, null, 'LCODE', to_date('07-04-2015 10:53:58', 'dd-mm-yyyy hh24:mi:ss'), null, '25');
+
+insert into state (ENTITY_CODE, STATE_CODE, STATE_DESCN, CR_BY, CR_ON, MO_BY, MO_ON, AU_BY, AU_ON, TBA_KEY, STATE_SUB_CODE)
+values ('1', 'DL', 'Delhi', 'LCODE', to_date('07-04-2015 10:53:58', 'dd-mm-yyyy hh24:mi:ss'), null, null, 'LCODE', to_date('07-04-2015 10:53:58', 'dd-mm-yyyy hh24:mi:ss'), null, '7');
+
+insert into state (ENTITY_CODE, STATE_CODE, STATE_DESCN, CR_BY, CR_ON, MO_BY, MO_ON, AU_BY, AU_ON, TBA_KEY, STATE_SUB_CODE)
+values ('1', 'GA', 'Goa', 'LCODE', to_date('07-04-2015 10:53:58', 'dd-mm-yyyy hh24:mi:ss'), null, null, 'LCODE', to_date('07-04-2015 10:53:58', 'dd-mm-yyyy hh24:mi:ss'), null, '30');
+
+insert into state (ENTITY_CODE, STATE_CODE, STATE_DESCN, CR_BY, CR_ON, MO_BY, MO_ON, AU_BY, AU_ON, TBA_KEY, STATE_SUB_CODE)
+values ('1', 'GJ', 'Gujarat', 'LCODE', to_date('07-04-2015 10:53:58', 'dd-mm-yyyy hh24:mi:ss'), null, null, 'LCODE', to_date('07-04-2015 10:53:58', 'dd-mm-yyyy hh24:mi:ss'), null, '24');
+
+insert into state (ENTITY_CODE, STATE_CODE, STATE_DESCN, CR_BY, CR_ON, MO_BY, MO_ON, AU_BY, AU_ON, TBA_KEY, STATE_SUB_CODE)
+values ('1', 'HR', 'Haryana', 'LCODE', to_date('07-04-2015 10:53:58', 'dd-mm-yyyy hh24:mi:ss'), null, null, 'LCODE', to_date('07-04-2015 10:53:58', 'dd-mm-yyyy hh24:mi:ss'), null, '6');
+
+insert into state (ENTITY_CODE, STATE_CODE, STATE_DESCN, CR_BY, CR_ON, MO_BY, MO_ON, AU_BY, AU_ON, TBA_KEY, STATE_SUB_CODE)
+values ('1', 'HP', 'Himachal Pradesh', 'LCODE', to_date('07-04-2015 10:53:59', 'dd-mm-yyyy hh24:mi:ss'), null, null, 'LCODE', to_date('07-04-2015 10:53:59', 'dd-mm-yyyy hh24:mi:ss'), null, '2');
+
+insert into state (ENTITY_CODE, STATE_CODE, STATE_DESCN, CR_BY, CR_ON, MO_BY, MO_ON, AU_BY, AU_ON, TBA_KEY, STATE_SUB_CODE)
+values ('1', 'JH', 'Jammu and Kashmir', 'LCODE', to_date('07-04-2015 10:53:59', 'dd-mm-yyyy hh24:mi:ss'), null, null, 'LCODE', to_date('07-04-2015 10:53:59', 'dd-mm-yyyy hh24:mi:ss'), null, '1');
+
+insert into state (ENTITY_CODE, STATE_CODE, STATE_DESCN, CR_BY, CR_ON, MO_BY, MO_ON, AU_BY, AU_ON, TBA_KEY, STATE_SUB_CODE)
+values ('1', 'JK', 'Jharkhand', 'LCODE', to_date('07-04-2015 10:53:59', 'dd-mm-yyyy hh24:mi:ss'), null, null, 'LCODE', to_date('07-04-2015 10:53:59', 'dd-mm-yyyy hh24:mi:ss'), null, '20');
+
+insert into state (ENTITY_CODE, STATE_CODE, STATE_DESCN, CR_BY, CR_ON, MO_BY, MO_ON, AU_BY, AU_ON, TBA_KEY, STATE_SUB_CODE)
+values ('1', 'KA', 'Karnataka', 'LCODE', to_date('07-04-2015 10:53:59', 'dd-mm-yyyy hh24:mi:ss'), null, null, 'LCODE', to_date('07-04-2015 10:53:59', 'dd-mm-yyyy hh24:mi:ss'), null, '29');
+
+insert into state (ENTITY_CODE, STATE_CODE, STATE_DESCN, CR_BY, CR_ON, MO_BY, MO_ON, AU_BY, AU_ON, TBA_KEY, STATE_SUB_CODE)
+values ('1', 'KL', 'Kerala', 'LCODE', to_date('07-04-2015 10:53:59', 'dd-mm-yyyy hh24:mi:ss'), null, null, 'LCODE', to_date('07-04-2015 10:53:59', 'dd-mm-yyyy hh24:mi:ss'), null, '32');
+
+insert into state (ENTITY_CODE, STATE_CODE, STATE_DESCN, CR_BY, CR_ON, MO_BY, MO_ON, AU_BY, AU_ON, TBA_KEY, STATE_SUB_CODE)
+values ('1', 'LD', 'Lakshadweep', 'LCODE', to_date('07-04-2015 10:53:59', 'dd-mm-yyyy hh24:mi:ss'), null, null, 'LCODE', to_date('07-04-2015 10:53:59', 'dd-mm-yyyy hh24:mi:ss'), null, '31');
+
+insert into state (ENTITY_CODE, STATE_CODE, STATE_DESCN, CR_BY, CR_ON, MO_BY, MO_ON, AU_BY, AU_ON, TBA_KEY, STATE_SUB_CODE)
+values ('1', 'MP', 'Madhya Pradesh', 'LCODE', to_date('07-04-2015 10:53:59', 'dd-mm-yyyy hh24:mi:ss'), null, null, 'LCODE', to_date('07-04-2015 10:53:59', 'dd-mm-yyyy hh24:mi:ss'), null, '23');
+
+insert into state (ENTITY_CODE, STATE_CODE, STATE_DESCN, CR_BY, CR_ON, MO_BY, MO_ON, AU_BY, AU_ON, TBA_KEY, STATE_SUB_CODE)
+values ('1', 'MH', 'Maharashtra', 'LCODE', to_date('07-04-2015 10:53:59', 'dd-mm-yyyy hh24:mi:ss'), null, null, 'LCODE', to_date('07-04-2015 10:53:59', 'dd-mm-yyyy hh24:mi:ss'), null, '27');
+
+insert into state (ENTITY_CODE, STATE_CODE, STATE_DESCN, CR_BY, CR_ON, MO_BY, MO_ON, AU_BY, AU_ON, TBA_KEY, STATE_SUB_CODE)
+values ('1', 'MN', 'Manipur', 'LCODE', to_date('07-04-2015 10:53:59', 'dd-mm-yyyy hh24:mi:ss'), null, null, 'LCODE', to_date('07-04-2015 10:53:59', 'dd-mm-yyyy hh24:mi:ss'), null, '14');
+
+insert into state (ENTITY_CODE, STATE_CODE, STATE_DESCN, CR_BY, CR_ON, MO_BY, MO_ON, AU_BY, AU_ON, TBA_KEY, STATE_SUB_CODE)
+values ('1', 'ML', 'Meghalaya', 'LCODE', to_date('07-04-2015 10:53:59', 'dd-mm-yyyy hh24:mi:ss'), null, null, 'LCODE', to_date('07-04-2015 10:53:59', 'dd-mm-yyyy hh24:mi:ss'), null, '17');
+
+insert into state (ENTITY_CODE, STATE_CODE, STATE_DESCN, CR_BY, CR_ON, MO_BY, MO_ON, AU_BY, AU_ON, TBA_KEY, STATE_SUB_CODE)
+values ('1', 'NL', 'Nagaland', 'LCODE', to_date('07-04-2015 10:53:59', 'dd-mm-yyyy hh24:mi:ss'), null, null, 'LCODE', to_date('07-04-2015 10:53:59', 'dd-mm-yyyy hh24:mi:ss'), null, '13');
+
+insert into state (ENTITY_CODE, STATE_CODE, STATE_DESCN, CR_BY, CR_ON, MO_BY, MO_ON, AU_BY, AU_ON, TBA_KEY, STATE_SUB_CODE)
+values ('1', 'OD', 'Odisha', 'LCODE', to_date('07-04-2015 10:53:59', 'dd-mm-yyyy hh24:mi:ss'), null, null, 'LCODE', to_date('07-04-2015 10:53:59', 'dd-mm-yyyy hh24:mi:ss'), null, '21');
+
+insert into state (ENTITY_CODE, STATE_CODE, STATE_DESCN, CR_BY, CR_ON, MO_BY, MO_ON, AU_BY, AU_ON, TBA_KEY, STATE_SUB_CODE)
+values ('1', 'PY', 'Puducherry', 'LCODE', to_date('07-04-2015 10:53:59', 'dd-mm-yyyy hh24:mi:ss'), null, null, 'LCODE', to_date('07-04-2015 10:53:59', 'dd-mm-yyyy hh24:mi:ss'), null, '34');
+
+insert into state (ENTITY_CODE, STATE_CODE, STATE_DESCN, CR_BY, CR_ON, MO_BY, MO_ON, AU_BY, AU_ON, TBA_KEY, STATE_SUB_CODE)
+values ('1', 'PB', 'Punjab', 'LCODE', to_date('07-04-2015 10:53:59', 'dd-mm-yyyy hh24:mi:ss'), null, null, 'LCODE', to_date('07-04-2015 10:53:59', 'dd-mm-yyyy hh24:mi:ss'), null, '3');
+
+insert into state (ENTITY_CODE, STATE_CODE, STATE_DESCN, CR_BY, CR_ON, MO_BY, MO_ON, AU_BY, AU_ON, TBA_KEY, STATE_SUB_CODE)
+values ('1', 'RJ', 'Rajasthan', 'LCODE', to_date('07-04-2015 10:53:59', 'dd-mm-yyyy hh24:mi:ss'), null, null, 'LCODE', to_date('07-04-2015 10:53:59', 'dd-mm-yyyy hh24:mi:ss'), null, '8');
+
+insert into state (ENTITY_CODE, STATE_CODE, STATE_DESCN, CR_BY, CR_ON, MO_BY, MO_ON, AU_BY, AU_ON, TBA_KEY, STATE_SUB_CODE)
+values ('1', 'SK', 'Sikkim', 'LCODE', to_date('07-04-2015 10:54:00', 'dd-mm-yyyy hh24:mi:ss'), null, null, 'LCODE', to_date('07-04-2015 10:54:00', 'dd-mm-yyyy hh24:mi:ss'), null, '11');
+
+insert into state (ENTITY_CODE, STATE_CODE, STATE_DESCN, CR_BY, CR_ON, MO_BY, MO_ON, AU_BY, AU_ON, TBA_KEY, STATE_SUB_CODE)
+values ('1', 'TN', 'Tamil Nadu', 'LCODE', to_date('07-04-2015 10:54:00', 'dd-mm-yyyy hh24:mi:ss'), null, null, 'LCODE', to_date('07-04-2015 10:54:00', 'dd-mm-yyyy hh24:mi:ss'), null, '33');
+
+insert into state (ENTITY_CODE, STATE_CODE, STATE_DESCN, CR_BY, CR_ON, MO_BY, MO_ON, AU_BY, AU_ON, TBA_KEY, STATE_SUB_CODE)
+values ('1', 'TR', 'Tripura', 'LCODE', to_date('07-04-2015 10:54:00', 'dd-mm-yyyy hh24:mi:ss'), null, null, 'LCODE', to_date('07-04-2015 10:54:00', 'dd-mm-yyyy hh24:mi:ss'), null, '16');
+
+insert into state (ENTITY_CODE, STATE_CODE, STATE_DESCN, CR_BY, CR_ON, MO_BY, MO_ON, AU_BY, AU_ON, TBA_KEY, STATE_SUB_CODE)
+values ('1', 'TS', 'Telangana', 'LCODE', to_date('07-04-2015 10:54:00', 'dd-mm-yyyy hh24:mi:ss'), null, null, 'LCODE', to_date('07-04-2015 10:54:00', 'dd-mm-yyyy hh24:mi:ss'), null, null);
+
+insert into state (ENTITY_CODE, STATE_CODE, STATE_DESCN, CR_BY, CR_ON, MO_BY, MO_ON, AU_BY, AU_ON, TBA_KEY, STATE_SUB_CODE)
+values ('1', 'UP', 'Uttar Pradesh', 'LCODE', to_date('07-04-2015 10:54:00', 'dd-mm-yyyy hh24:mi:ss'), null, null, 'LCODE', to_date('07-04-2015 10:54:00', 'dd-mm-yyyy hh24:mi:ss'), null, '9');
+
+insert into state (ENTITY_CODE, STATE_CODE, STATE_DESCN, CR_BY, CR_ON, MO_BY, MO_ON, AU_BY, AU_ON, TBA_KEY, STATE_SUB_CODE)
+values ('1', 'UK', 'Uttarakhand', 'LCODE', to_date('07-04-2015 10:54:00', 'dd-mm-yyyy hh24:mi:ss'), null, null, 'LCODE', to_date('07-04-2015 10:54:00', 'dd-mm-yyyy hh24:mi:ss'), null, '5');
+
+insert into state (ENTITY_CODE, STATE_CODE, STATE_DESCN, CR_BY, CR_ON, MO_BY, MO_ON, AU_BY, AU_ON, TBA_KEY, STATE_SUB_CODE)
+values ('1', 'WB', 'West Bengal', 'LCODE', to_date('07-04-2015 10:54:00', 'dd-mm-yyyy hh24:mi:ss'), null, null, 'LCODE', to_date('07-04-2015 10:54:00', 'dd-mm-yyyy hh24:mi:ss'), null, '19');
+
+insert into state (ENTITY_CODE, STATE_CODE, STATE_DESCN, CR_BY, CR_ON, MO_BY, MO_ON, AU_BY, AU_ON, TBA_KEY, STATE_SUB_CODE)
+values ('1', 'MZ', 'Mizoram', 'LCODE', to_date('07-04-2015 10:55:47', 'dd-mm-yyyy hh24:mi:ss'), null, null, 'LCODE', to_date('07-04-2015 10:55:47', 'dd-mm-yyyy hh24:mi:ss'), null, '15');
+
+insert into state (ENTITY_CODE, STATE_CODE, STATE_DESCN, CR_BY, CR_ON, MO_BY, MO_ON, AU_BY, AU_ON, TBA_KEY, STATE_SUB_CODE)
+values ('1', 'GO', 'Goa', 'LCODE', to_date('07-04-2015 10:53:59', 'dd-mm-yyyy hh24:mi:ss'), null, null, 'LCODE', to_date('07-04-2015 10:53:59', 'dd-mm-yyyy hh24:mi:ss'), null, null);
+
+insert into state (ENTITY_CODE, STATE_CODE, STATE_DESCN, CR_BY, CR_ON, MO_BY, MO_ON, AU_BY, AU_ON, TBA_KEY, STATE_SUB_CODE)
+values ('1', 'JD', 'JHARKHAND', 'SYSTEM', to_date('05-01-2021 19:12:18', 'dd-mm-yyyy hh24:mi:ss'), null, null, null, null, null, null);
+
+insert into state (ENTITY_CODE, STATE_CODE, STATE_DESCN, CR_BY, CR_ON, MO_BY, MO_ON, AU_BY, AU_ON, TBA_KEY, STATE_SUB_CODE)
+values ('1', 'PN', 'PONDICHERRY', 'SYSTEM', to_date('05-01-2021 19:12:18', 'dd-mm-yyyy hh24:mi:ss'), null, null, null, null, null, null);
+
+insert into state (ENTITY_CODE, STATE_CODE, STATE_DESCN, CR_BY, CR_ON, MO_BY, MO_ON, AU_BY, AU_ON, TBA_KEY, STATE_SUB_CODE)
+values ('1', 'ME', 'MEGHALAYA', 'SYSTEM', to_date('05-01-2021 19:12:18', 'dd-mm-yyyy hh24:mi:ss'), null, null, null, null, null, null);
+
+insert into state (ENTITY_CODE, STATE_CODE, STATE_DESCN, CR_BY, CR_ON, MO_BY, MO_ON, AU_BY, AU_ON, TBA_KEY, STATE_SUB_CODE)
+values ('1', 'NG', 'NAGALAND', 'SYSTEM', to_date('05-01-2021 19:12:18', 'dd-mm-yyyy hh24:mi:ss'), null, null, null, null, null, null);
+
+insert into state (ENTITY_CODE, STATE_CODE, STATE_DESCN, CR_BY, CR_ON, MO_BY, MO_ON, AU_BY, AU_ON, TBA_KEY, STATE_SUB_CODE)
+values ('1', 'KE', 'KERALA', 'SYSTEM', to_date('05-01-2021 19:12:18', 'dd-mm-yyyy hh24:mi:ss'), null, null, null, null, null, null);
+
+insert into state (ENTITY_CODE, STATE_CODE, STATE_DESCN, CR_BY, CR_ON, MO_BY, MO_ON, AU_BY, AU_ON, TBA_KEY, STATE_SUB_CODE)
+values ('1', 'OR', 'ODISHA', 'SYSTEM', to_date('05-01-2021 19:12:18', 'dd-mm-yyyy hh24:mi:ss'), null, null, null, null, null, null);
+
+insert into state (ENTITY_CODE, STATE_CODE, STATE_DESCN, CR_BY, CR_ON, MO_BY, MO_ON, AU_BY, AU_ON, TBA_KEY, STATE_SUB_CODE)
+values ('1', 'LK', 'LAKSHADWEEP', 'SYSTEM', to_date('05-01-2021 19:12:18', 'dd-mm-yyyy hh24:mi:ss'), null, null, null, null, null, null);
+
+insert into state (ENTITY_CODE, STATE_CODE, STATE_DESCN, CR_BY, CR_ON, MO_BY, MO_ON, AU_BY, AU_ON, TBA_KEY, STATE_SUB_CODE)
+values ('1', 'BH', 'Bihar', 'LCODE', to_date('07-04-2015 10:53:58', 'dd-mm-yyyy hh24:mi:ss'), null, null, 'LCODE', to_date('07-04-2015 10:53:58', 'dd-mm-yyyy hh24:mi:ss'), null, '10');
+
+insert into state (ENTITY_CODE, STATE_CODE, STATE_DESCN, CR_BY, CR_ON, MO_BY, MO_ON, AU_BY, AU_ON, TBA_KEY, STATE_SUB_CODE)
+values ('1', 'CT', 'Chhattisgarh', 'LCODE', to_date('07-04-2015 10:53:58', 'dd-mm-yyyy hh24:mi:ss'), null, null, 'LCODE', to_date('07-04-2015 10:53:58', 'dd-mm-yyyy hh24:mi:ss'), null, '22');
+
+insert into state (ENTITY_CODE, STATE_CODE, STATE_DESCN, CR_BY, CR_ON, MO_BY, MO_ON, AU_BY, AU_ON, TBA_KEY, STATE_SUB_CODE)
+values ('1', 'JR', 'Jharkhand', 'LCODE', to_date('07-04-2015 10:53:59', 'dd-mm-yyyy hh24:mi:ss'), null, null, 'LCODE', to_date('07-04-2015 10:53:59', 'dd-mm-yyyy hh24:mi:ss'), null, '20');
+
+insert into state (ENTITY_CODE, STATE_CODE, STATE_DESCN, CR_BY, CR_ON, MO_BY, MO_ON, AU_BY, AU_ON, TBA_KEY, STATE_SUB_CODE)
+values ('1', 'TL', 'Telangana', 'LCODE', to_date('07-04-2015 10:54:00', 'dd-mm-yyyy hh24:mi:ss'), null, null, 'LCODE', to_date('07-04-2015 10:54:00', 'dd-mm-yyyy hh24:mi:ss'), null, '36');
+
+
+CREATE TABLE SBREQ_DLDOCS(
+
+DOC_CODE VARCHAR(10) NOT NULL,
+SBREQ_APP_NUM VARCHAR(30) NOT NULL,
+FATHERS_NAME VARCHAR(255),
+CUST_IMG  CLOB,
+CUST_ADDRESS VARCHAR(500),
+CUST_BLOOD_GROUP VARCHAR(10),
+CUST_DOB DATE,
+CUST_NAME VARCHAR(100),
+DL_VALIDITY  VARCHAR(100),
+DL_ISSUE_DATE DATE,
+CR_BY VARCHAR(30),
+CR_ON DATETIME,
+PRIMARY KEY (DOC_CODE, SBREQ_APP_NUM));
+
+
+CREATE TABLE SBREQ_DLDOCS(
+DOC_CODE VARCHAR2(10) NOT NULL,
+SBREQ_APP_NUM VARCHAR2(30) NOT NULL,
+FATHERS_NAME VARCHAR2(255),
+CUST_IMG  CLOB,
+CUST_ADDRESS VARCHAR2(500),
+CUST_BLOOD_GROUP VARCHAR2(10),
+CUST_DOB DATE,
+CUST_NAME VARCHAR2(100),
+DL_VALIDITY  VARCHAR2(150),
+DL_ISSUE_DATE VARCHAR2(150),
+CR_BY VARCHAR2(30),
+CR_ON DATE,
+PRIMARY KEY (DOC_CODE, SBREQ_APP_NUM));
+
+
+create table OCCUPATIONS
+(
+  OCCUPATIONS_CODE        VARCHAR2(6) not null,
+  OCCUPATIONS_DESCN       VARCHAR2(50),
+  OCCUPATIONS_CONC_DESCN  VARCHAR2(15),
+  OCCUPATIONS_ENTD_BY     VARCHAR2(8) not null,
+  OCCUPATIONS_ENTD_ON     DATE not null,
+  OCCUPATIONS_LAST_MOD_BY VARCHAR2(8),
+  OCCUPATIONS_LAST_MOD_ON DATE,
+  OCCUPATIONS_AUTH_BY     VARCHAR2(8),
+  OCCUPATIONS_AUTH_ON     DATE,
+  TBA_MAIN_KEY            VARCHAR2(25)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table CBUAT.OCCUPATIONS
+  add constraint PK_OCCUPATIONS primary key (OCCUPATIONS_CODE)
+  using index 
+  tablespace TBSIDX01
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+  
+  
+-- Create table
+create table LANGUAGES
+(
+  LANGUAGE_CODE        VARCHAR2(6) not null,
+  LANGUAGE_NAME        VARCHAR2(50),
+  LANGUAGE_ISO_CODE    VARCHAR2(3),
+  LANGUAGE_ENTD_BY     VARCHAR2(8) not null,
+  LANGUAGE_ENTD_ON     DATE not null,
+  LANGUAGE_LAST_MOD_BY VARCHAR2(8),
+  LANGUAGE_LAST_MOD_ON DATE,
+  LANGUAGE_AUTH_BY     VARCHAR2(8),
+  LANGUAGE_AUTH_ON     DATE,
+  TBA_MAIN_KEY         VARCHAR2(25)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table CBUAT.LANGUAGES
+  add constraint PK_LANGUAGES primary key (LANGUAGE_CODE)
+  using index 
+  tablespace TBSIDX01
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+
+
+-- Create table
+create table LOCATION
+(
+  LOCN_CODE               VARCHAR2(6) not null,
+  LOCN_NAME               VARCHAR2(50),
+  LOCN_CNTRY_CODE         VARCHAR2(2),
+  LOCN_STATE_CODE         VARCHAR2(2),
+  LOCN_DISTRICT_CODE      VARCHAR2(3),
+  LOCN_TYPE_OF_LOCATION   CHAR(1),
+  LOCN_TYPE_OF_CENTER     CHAR(1),
+  LOCN_CLG_MANAGED_BANK   VARCHAR2(6),
+  LOCN_MICR_LOCATION      CHAR(1) default '0',
+  LOCN_CHQ_TRUNC_LOCATION CHAR(1) default '0',
+  LOCN_ENTD_BY            VARCHAR2(8) not null,
+  LOCN_ENTD_ON            DATE not null,
+  LOCN_LAST_MOD_BY        VARCHAR2(8),
+  LOCN_LAST_MOD_ON        DATE,
+  LOCN_AUTH_BY            VARCHAR2(8),
+  LOCN_AUTH_ON            DATE,
+  TBA_MAIN_KEY            VARCHAR2(25),
+  LOCN_GEO_REGION_TYPE    VARCHAR2(3),
+  LOCN_GEO_REGION_CODE    VARCHAR2(15)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table CBUAT.LOCATION
+  add primary key (LOCN_CODE)
+  using index 
+  tablespace TBSIDX01
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+
+
+-- Create table
+create table RELIGION
+(
+  RELIGION_CODE        VARCHAR2(2) not null,
+  RELIGION_DESCN       VARCHAR2(35),
+  RELIGION_ENTD_BY     VARCHAR2(8) not null,
+  RELIGION_ENTD_ON     DATE not null,
+  RELIGION_LAST_MOD_BY VARCHAR2(8),
+  RELIGION_LAST_MOD_ON DATE,
+  RELIGION_AUTH_BY     VARCHAR2(8),
+  RELIGION_AUTH_ON     DATE,
+  TBA_MAIN_KEY         VARCHAR2(25)
+)
+tablespace TBFES
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table CBUAT.RELIGION
+  add constraint PK_RELIGION primary key (RELIGION_CODE)
+  using index 
+  tablespace TBSIDX02
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+
+
+
+-- Create table
+create table TITLES
+(
+  TITLES_CODE               VARCHAR2(4) not null,
+  TITLES_DESCN              VARCHAR2(15),
+  TITLES_CONC_DESCN         VARCHAR2(6),
+  TITLES_RESERVED_FOR       CHAR(1),
+  TITLES_FOR_MALES_FEMALES  CHAR(1),
+  TITLES_FOR_MARITAL_STATUS CHAR(1),
+  TITLES_ENTD_BY            VARCHAR2(8) not null,
+  TITLES_ENTD_ON            DATE not null,
+  TITLES_LAST_MOD_BY        VARCHAR2(8),
+  TITLES_LAST_MOD_ON        DATE,
+  TITLES_AUTH_BY            VARCHAR2(8),
+  TITLES_AUTH_ON            DATE,
+  TBA_MAIN_KEY              VARCHAR2(25)
+)
+tablespace TBAML
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table CBUAT.TITLES
+  add constraint PK_TITLES primary key (TITLES_CODE)
+  using index 
+  tablespace TBSIDX01
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+
+
+-- Create table
+create table STATE
+(
+  STATE_CNTRY_CODE    VARCHAR2(2) not null,
+  STATE_CODE          VARCHAR2(2) not null,
+  STATE_NAME          VARCHAR2(50),
+  STATE_DISTRICT_REQD CHAR(1) default 0,
+  STATE_ENTD_BY       VARCHAR2(8) not null,
+  STATE_ENTD_ON       DATE not null,
+  STATE_LAST_MOD_BY   VARCHAR2(8),
+  STATE_LAST_MOD_ON   DATE,
+  STATE_AUTH_BY       VARCHAR2(8),
+  STATE_AUTH_ON       DATE,
+  TBA_MAIN_KEY        VARCHAR2(25)
+)
+tablespace TBAML
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table CBUAT.STATE
+  add constraint PK_STATE primary key (STATE_CNTRY_CODE, STATE_CODE)
+  using index 
+  tablespace TBSIDX01
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+
+
+CREATE TABLE SBREQ_PRODUCT_CODE (
+
+	PRODUCT_CODE VARCHAR(15) not null,
+	PRODUCT_DESC VARCHAR(255),
+	PRODUCT_STATUS CHAR(1),
+	CR_BY VARCHAR(30),
+	CR_ON DATETIME,
+	MO_BY VARCHAR(30),
+	MO_ON DATETIME,
+	AU_BY VARCHAR(30),
+	AU_ON DATETIME,
+	TBA_KEY VARCHAR(30),
+PRIMARY KEY (PRODUCT_CODE));
+
+CREATE TABLE SBREQ_ACCOUNT_TYPE (
+
+	ACCOUNT_TYPE_CODE VARCHAR(50) not null,
+	ACCOUNT_TYPE_DESC VARCHAR(255),
+	ACCOUNT_TYPE_PROD VARCHAR(255),
+	ACCOUNT_STATUS char(1),
+	CR_BY VARCHAR(30),
+	CR_ON DATETIME,
+	MO_BY VARCHAR(30),
+	MO_ON DATETIME,
+	AU_BY VARCHAR(30),
+	AU_ON DATETIME,
+	TBA_KEY VARCHAR(30),
+PRIMARY KEY (ACCOUNT_TYPE));
+
+
+CREATE TABLE sbreq_ekyc_docs (
+    SBREQ_APP_NUM VARCHAR2(30) NOT NULL,
+    DOC_CODE VARCHAR2(30) NOT NULL,
+    DOC_SL NUMBER(8) NOT NULL,
+    DOC_DATA CLOB,
+    STATUS CHAR(1),
+    CR_BY VARCHAR2(32),
+    CR_ON DATE,
+    PRIMARY KEY (SBREQ_APP_NUM, DOC_CODE, DOC_SL)
+);
+
+
+CREATE TABLE SBTYPE_OF_ACCOMODATION (
+
+	ACCOM_CODE VARCHAR(50) not null,
+	ACCOM_DESC VARCHAR(255),
+	ACCOM_STATUS char(1),
+	CR_BY VARCHAR(30),
+	CR_ON DATETIME,
+	MO_BY VARCHAR(30),
+	MO_ON DATETIME,
+	AU_BY VARCHAR(30),
+	AU_ON DATETIME,
+	TBA_KEY VARCHAR(30),
+PRIMARY KEY (ACCOM_CODE));
+
+
+//plsql query
+
+CREATE TABLE SBREQ_PRODUCT_CODE (
+	PRODUCT_CODE VARCHAR2(15) not null,
+	PRODUCT_DESC VARCHAR2(255),
+	PRODUCT_STATUS CHAR(1),
+	CR_BY VARCHAR2(30),
+	CR_ON DATE,
+	MO_BY VARCHAR2(30),
+	MO_ON DATE,
+	AU_BY VARCHAR2(30),
+	AU_ON DATE,
+	TBA_KEY VARCHAR2(30),
+PRIMARY KEY (PRODUCT_CODE));
+
+CREATE TABLE SBREQ_ACCOUNT_TYPE (
+	ACCOUNT_TYPE_CODE VARCHAR2(50) not null,
+	ACCOUNT_TYPE_DESC VARCHAR2(255),
+	ACCOUNT_TYPE_PROD VARCHAR2(255),
+	ACCOUNT_STATUS char(1),
+	CR_BY VARCHAR2(30),
+	CR_ON DATE,
+	MO_BY VARCHAR2(30),
+	MO_ON DATE,
+	AU_BY VARCHAR2(30),
+	AU_ON DATE,
+	TBA_KEY VARCHAR2(30),
+PRIMARY KEY (ACCOUNT_TYPE_CODE));
+
+
+create table TITLES
+(
+  TITLES_CODE               VARCHAR2(4) not null,
+  TITLES_DESCN              VARCHAR2(15),
+  TITLES_CONC_DESCN         VARCHAR2(6),
+  TITLES_RESERVED_FOR       CHAR(1),
+  TITLES_FOR_MALES_FEMALES  CHAR(1),
+  TITLES_FOR_MARITAL_STATUS CHAR(1),
+  TITLES_ENTD_BY            VARCHAR2(8) not null,
+  TITLES_ENTD_ON            DATE not null,
+  TITLES_LAST_MOD_BY        VARCHAR2(8),
+  TITLES_LAST_MOD_ON        DATE,
+  TITLES_AUTH_BY            VARCHAR2(8),
+  TITLES_AUTH_ON            DATE,
+  TBA_MAIN_KEY              VARCHAR2(25)
+);
+
+create table RELIGION
+(
+  RELIGION_CODE        VARCHAR2(2) not null,
+  RELIGION_DESCN       VARCHAR2(35),
+  RELIGION_ENTD_BY     VARCHAR2(8) not null,
+  RELIGION_ENTD_ON     DATE not null,
+  RELIGION_LAST_MOD_BY VARCHAR2(8),
+  RELIGION_LAST_MOD_ON DATE,
+  RELIGION_AUTH_BY     VARCHAR2(8),
+  RELIGION_AUTH_ON     DATE,
+  TBA_MAIN_KEY         VARCHAR2(25)
+);
+
+
+CREATE TABLE SBTYPE_OF_ACCOMODATION (
+	ACCOM_CODE VARCHAR2(50) not null,
+	ACCOM_DESC VARCHAR2(255),
+	ACCOM_STATUS char(1),
+	CR_BY VARCHAR2(30),
+	CR_ON DATE,
+	MO_BY VARCHAR2(30),
+	MO_ON DATE,
+	AU_BY VARCHAR2(30),
+	AU_ON DATE,
+	TBA_KEY VARCHAR2(30),
+    PRIMARY KEY (ACCOM_CODE));
+
+
+create sequence LOG_OTPREQ_SEQ
+minvalue 1
+maxvalue 9999999
+start with 1000301
+increment by 1
+cache 50
+cycle;
+
+
+create table SBREQ_BANNER_UPLOADS
+(
+  SL_NO    NUMBER(11),
+  DOC_NAME VARCHAR2(500),
+  DOC_PATH VARCHAR2(500),
+  CR_BY    VARCHAR2(500),
+  CR_ON    DATE,
+  MO_BY    VARCHAR2(500),
+  MO_ON    DATE
+);
+
+create table SBREQ_PINCODE_DATA
+(
+  PIN_CODE      NUMBER(11) not null,
+  BRANCH_CODE   VARCHAR2(500),
+  BRANCH_NAME   VARCHAR2(500),
+  DISTRICT_CODE VARCHAR2(500),
+  STATE_CODE    VARCHAR2(500),
+  STATUS        CHAR(1),
+  CR_BY         VARCHAR2(500),
+  CR_ON         DATE
+);
+
+
+create table MBRN
+(
+  MBRN_ENTITY_NUM          NUMBER(4) not null,
+  MBRN_CODE                NUMBER(6) not null,
+  MBRN_NAME                VARCHAR2(50),
+  MBRN_ADDR1               VARCHAR2(35),
+  MBRN_ADDR2               VARCHAR2(35),
+  MBRN_ADDR3               VARCHAR2(35),
+  MBRN_ADDR4               VARCHAR2(35),
+  MBRN_ADDR5               VARCHAR2(35),
+  MBRN_LOCN_CODE           VARCHAR2(6),
+  MBRN_OPENED_ON_DATE      DATE,
+  MBRN_ADMIN_UNIT_TYPE     VARCHAR2(6),
+  MBRN_PARENT_ADMIN_CODE   NUMBER(6) default 0,
+  MBRN_NUM_EXTN_CTR        NUMBER(3) default 0,
+  MBRN_CATEGORY            VARCHAR2(2),
+  MBRN_SIZE                VARCHAR2(2),
+  MBRN_AUTH_DEAL_FOREX     CHAR(1),
+  MBRN_AUTH_FOR_FCDEP      CHAR(1) default 0,
+  MBRN_MICR_CODE           NUMBER(6) default 0,
+  MBRN_MAINBRN_IN_LOCN     CHAR(1) default 0,
+  MBRN_LINK_SERV_MAIN_BRN  NUMBER(6) default 0,
+  MBRN_DD_ISSUE_ALLOWED    CHAR(1) default 0,
+  MBRN_TT_ISSUE_ALLOWED    CHAR(1) default 0,
+  MBRN_SPLIT_PREMISES      CHAR(1) default 0,
+  MBRN_NUM_SPLIT_PREMISES  NUMBER(2) default 0,
+  MBRN_LOCAL_CLG_MEMBER    CHAR(1) default 0,
+  MBRN_NATNL_CLG_MEMBER    CHAR(1) default 0,
+  MBRN_HIGH_VAL_CLG_MEMBER CHAR(1) default 0,
+  MBRN_NUM_OFFICERS_AVL    NUMBER(2) default 0,
+  MBRN_IFSC_CODE           VARCHAR2(15),
+  MBRN_CLG_BASED_ON_MICR   CHAR(1) default 0,
+  MBRN_CASH_MGMT_BRANCH    CHAR(1) default 0,
+  MBRN_RTGS_DEP_ENABLED    CHAR(1) default 0,
+  MBRN_BASE_CURR_CODE      VARCHAR2(3),
+  MBRN_TEL_NO1             VARCHAR2(15),
+  MBRN_TEL_NO2             VARCHAR2(15),
+  MBRN_TEL_NO3             VARCHAR2(15),
+  MBRN_TEL_NO4             VARCHAR2(15),
+  MBRN_TEL_NO5             VARCHAR2(15),
+  MBRN_TEL_NO6             VARCHAR2(15),
+  MBRN_FAX_NO1             VARCHAR2(15),
+  MBRN_FAX_NO2             VARCHAR2(15),
+  MBRN_FAX_NO3             VARCHAR2(15),
+  MBRN_FAX_NO4             VARCHAR2(15),
+  MBRN_FAX_NO5             VARCHAR2(15),
+  MBRN_FAX_NO6             VARCHAR2(15),
+  MBRN_EMAIL_ADDR1         VARCHAR2(50),
+  MBRN_EMAIL_ADDR2         VARCHAR2(50),
+  MBRN_SWIFT_BIC_CODE      VARCHAR2(12),
+  MBRN_WEEK_HOL_MON        CHAR(1) default 0,
+  MBRN_WEEK_HOL_TUE        CHAR(1) default 0,
+  MBRN_WEEK_HOL_WED        CHAR(1) default 0,
+  MBRN_WEEK_HOL_THU        CHAR(1) default 0,
+  MBRN_WEEK_HOL_FRI        CHAR(1) default 0,
+  MBRN_WEEK_HOL_SAT        CHAR(1) default 0,
+  MBRN_WEEK_HOL_SUN        CHAR(1) default 0,
+  MBRN_HALF_WORK_MON       CHAR(1) default 0,
+  MBRN_HALF_WORK_TUE       CHAR(1) default 0,
+  MBRN_HALF_WORK_WED       CHAR(1) default 0,
+  MBRN_HALF_WORK_THU       CHAR(1) default 0,
+  MBRN_HALF_WORK_FRI       CHAR(1) default 0,
+  MBRN_HALF_WORK_SAT       CHAR(1) default 0,
+  MBRN_HALF_WORK_SUN       CHAR(1) default 0,
+  MBRN_AUTH_DLR_CODE       VARCHAR2(20),
+  MBRN_BSR_CODE            VARCHAR2(7),
+  MBRN_STATUS_FLG          CHAR(1),
+  MBRN_CLOSURE_DATE        DATE,
+  MBRN_ENTD_BY             VARCHAR2(8) not null,
+  MBRN_ENTD_ON             DATE not null,
+  MBRN_LAST_MOD_BY         VARCHAR2(8),
+  MBRN_LAST_MOD_ON         DATE,
+  MBRN_AUTH_BY             VARCHAR2(8),
+  MBRN_AUTH_ON             DATE,
+  TBA_MAIN_KEY             VARCHAR2(25)
+);

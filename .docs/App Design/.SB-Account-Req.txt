@@ -1,0 +1,673 @@
+-----------------------------------------------------------------------------
+-- ONLINE SB A/C OPENING (digital_sb_account) --
+-----------------------------------------------------------------------------
+
+
+CREATE SEQUENCE SBREQ_MASTER_SEQ
+START WITH 1000001
+MAXVALUE   9999999
+INCREMENT BY 1
+CYCLE
+CACHE 50;
+
+-- SELECT 'DA' || DATE_FORMAT(SYSDATE(),'%Y%m%d') || NEXTVAL(SBREQ_MASTER_SEQ) FROM DUAL
+
+
+CREATE TABLE SBREQ_MASTER (
+  SBREQ_APP_NUM       VARCHAR(30) NOT NULL,
+  SBREQ_MOBILE_NUM    VARCHAR(15),
+  SBREQ_EMAIL_ID      VARCHAR(255),
+  SBREQ_APP_STATUS    CHAR(3),
+  SBREQ_VKYC_STATUS   CHAR(3),
+  SBREQ_CUST_TITLE    VARCHAR(12),
+  SBREQ_CUST_NAME     VARCHAR(150),
+  SBREQ_CUST_DOB      DATE,
+  SBREQ_DBT_CHOICE    CHAR(1),
+  SBREQ_EKYC_FLAG     CHAR(1),
+  SBREQ_EKYC_REF_NUM  VARCHAR(50),
+  SBREQ_EKYC_NAME     VARCHAR(150),
+  SBREQ_PAN_FLAG      CHAR(1),
+  SBREQ_PAN_REF_NUM   VARCHAR(50),
+  SBREQ_PAN_CARD      VARCHAR(500),
+  SBREQ_PAN_NAME      VARCHAR(150),
+  REFERRAL_CODE       VARCHAR(120),
+  CR_BY VARCHAR(30),
+  CR_ON DATETIME,
+  MO_BY VARCHAR(30),
+  MO_ON DATETIME,
+  AU_BY VARCHAR(30),
+  AU_ON DATETIME,
+  TBA_KEY VARCHAR(25),
+  PRIMARY KEY (SBREQ_APP_NUM)
+);
+
+CREATE TABLE SBREQ_EKYC_DATA (
+  SBREQ_APP_NUM       VARCHAR(30) NOT NULL,
+  EKYC_SL             INT(3),
+  SBREQ_MOBILE_NUM    VARCHAR(15),
+  EKYC_REF_NUM        VARCHAR(50),
+  EKYC_NAME           VARCHAR(150),
+  EKYC_DOB            VARCHAR(150),
+  EKYC_GENDER         VARCHAR(60),
+  EKYC_CARE_OF_NAME   VARCHAR(150),
+  EKYC_ADDR_1         VARCHAR(150),
+  EKYC_ADDR_2         VARCHAR(150),
+  EKYC_ADDR_3         VARCHAR(150),
+  EKYC_ADDR_4         VARCHAR(150),
+  EKYC_ADDR_5         VARCHAR(150),
+  EKYC_ADDR_6         VARCHAR(150),
+  EKYC_ADDR_7         VARCHAR(150),
+  EKYC_ADDR_8         VARCHAR(150),
+  EKYC_ADDR_9         VARCHAR(150),
+  EKYC_ADDR_10        VARCHAR(150),
+  EKYC_PINCODE        VARCHAR(10),
+  EKYC_UID            VARCHAR(500),
+  EKYC_CUST_IMG       TEXT,
+  CR_BY   VARCHAR(30),
+  CR_ON   DATETIME,
+  PRIMARY KEY (SBREQ_APP_NUM, EKYC_SL)
+);
+
+
+
+-----------------------------------------------------------------------------
+
+-- OTP Gen. Logs
+
+CREATE SEQUENCE LOG_OTPREQ_SEQ
+START WITH 1000001
+MAXVALUE   9999999
+INCREMENT BY 1
+CYCLE
+CACHE 50;
+
+-- SELECT 'OTP' || DATE_FORMAT(SYSDATE(),'%Y%m%d') || NEXTVAL(LOG_OTPREQ_SEQ) FROM DUAL
+
+CREATE TABLE LOG_OTPREQ (
+  OTP_REQ_ID          VARCHAR(30) NOT NULL,
+  OTP_PGMCODE         VARCHAR(12), -- N = New Request | E = Existing/Login
+  OTP_MOBILE_NUM      VARCHAR(15),
+  OTP_EMAIL_ID        VARCHAR(120),
+  SMS_VERIFIED_FLAG   CHAR(1),
+  SMS_VERIFIED_ON     DATETIME,
+  SMS_RESENT_COUNT    INT(3),
+  SMS_SENT_RESP       VARCHAR(255),
+  EMAIL_VERIFIED_FLAG CHAR(1),
+  EMAIL_VERIFIED_ON   DATETIME,
+  EMAIL_RESENT_COUNT  INT(3),
+  EMAIL_SENT_RESP     VARCHAR(255),
+  REQ_DATA            TEXT,
+  GEN_PLATFORM        VARCHAR(60),
+  GEN_BROWSER_NAME    VARCHAR(60),
+  GEN_BROWSER_VER     VARCHAR(60),
+  GEN_IP_ADDRESS      VARCHAR(255),
+  CR_BY             VARCHAR(30),
+  CR_ON             DATETIME,
+  MO_BY             VARCHAR(30),
+  MO_ON             DATETIME,
+  AU_BY             VARCHAR(30),
+  AU_ON             DATETIME,
+  TBA_KEY           VARCHAR(25),
+  PRIMARY KEY       (OTP_REQ_ID)
+);
+
+
+----------------------------------------------------------
+
+
+CREATE SEQUENCE LOG_EXTAPI_SENT_SEQ
+START WITH 10000001
+MAXVALUE   99999999
+INCREMENT BY 1
+CYCLE
+CACHE 50;
+
+-- SELECT DATE_FORMAT(SYSDATE(),'%Y%m%d') || NEXTVAL(LOG_EXTAPI_SENT_SEQ) FROM DUAL
+
+
+
+
+-- Create table
+create table COMMUNITY
+(
+  entity_code     VARCHAR2(12) not null,
+  community_code  VARCHAR2(20) not null,
+  community_descn VARCHAR2(500),
+  cr_by           VARCHAR2(50) not null,
+  cr_on           DATE not null,
+  mo_by           VARCHAR2(50),
+  mo_on           DATE,
+  au_by           VARCHAR2(50),
+  au_on           DATE,
+  tba_key         VARCHAR2(25)
+)
+tablespace TBFES
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table COMMUNITY
+  add constraint PK_COMMUNITY primary key (ENTITY_CODE, COMMUNITY_CODE)
+  using index 
+  tablespace TBFES
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+
+
+-----------------------------------------------------------------
+
+
+-- Create table
+create table CASTE
+(
+  entity_code VARCHAR2(12) not null,
+  caste_code  VARCHAR2(20) not null,
+  caste_descn VARCHAR2(500),
+  cr_by       VARCHAR2(50) not null,
+  cr_on       DATE not null,
+  mo_by       VARCHAR2(50),
+  mo_on       DATE,
+  au_by       VARCHAR2(50),
+  au_on       DATE,
+  tba_key     VARCHAR2(25)
+)
+tablespace TBFES
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table CASTE
+  add constraint PK_CASTE primary key (ENTITY_CODE, CASTE_CODE)
+  using index 
+  tablespace TBFES
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+
+
+-----------------------------------------------------------------
+
+-- Create table
+create table OCCUPATION
+(
+  entity_code VARCHAR2(12) not null,
+  occup_code  VARCHAR2(20) not null,
+  occup_descn VARCHAR2(500),
+  cr_by       VARCHAR2(50) not null,
+  cr_on       DATE not null,
+  mo_by       VARCHAR2(50),
+  mo_on       DATE,
+  au_by       VARCHAR2(50),
+  au_on       DATE,
+  tba_key     VARCHAR2(25)
+)
+tablespace TBFES
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table OCCUPATION
+  add constraint PK_OCCUPATION primary key (ENTITY_CODE, OCCUP_CODE)
+  using index 
+  tablespace TBFES
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+
+
+------------------------------------------------------------------------------------
+
+
+
+-- Create table
+create table COUNTRY
+(
+  entity_code  VARCHAR2(12) not null,
+  country_code VARCHAR2(4) not null,
+  country_desc VARCHAR2(500),
+  cr_by        VARCHAR2(50) not null,
+  cr_on        DATE not null,
+  mo_by        VARCHAR2(50),
+  mo_on        DATE,
+  au_by        VARCHAR2(50),
+  au_on        DATE,
+  tba_key      VARCHAR2(25)
+)
+tablespace TBFES
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table COUNTRY
+  add constraint PK_COUNTRY primary key (ENTITY_CODE)
+  using index 
+  tablespace TBFES
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+
+
+
+-----------------------------------------------------------------------------
+
+
+-- Create table
+create table NOMINEETYPE
+(
+  nominee_code   VARCHAR2(10) not null,
+  nominee_desc   VARCHAR2(100),
+  nominee_type   CHAR(1) not null,
+  nominee_status CHAR(1)
+)
+tablespace TBFES
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table NOMINEETYPE
+  add constraint PK_NOMINEETYPE primary key (NOMINEE_CODE, NOMINEE_TYPE)
+  using index 
+  tablespace TBFES
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+
+
+--------------------------------------------------------------------------
+
+
+-- Create table
+create table STATE
+(
+  entity_code    VARCHAR2(12) not null,
+  state_code     VARCHAR2(50) not null,
+  state_descn    VARCHAR2(100),
+  cr_by          VARCHAR2(50) not null,
+  cr_on          DATE not null,
+  mo_by          VARCHAR2(50),
+  mo_on          DATE,
+  au_by          VARCHAR2(50),
+  au_on          DATE,
+  tba_key        VARCHAR2(25),
+  state_sub_code VARCHAR2(20)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table STATE
+  add constraint STATE_PK primary key (ENTITY_CODE, STATE_CODE)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Grant/Revoke object privileges 
+grant select on STATE to VENDOR_SELECT_ROLE;
+
+
+
+ucocorp
+
+Mbanking_live
+
+uco123 password
+
+
+prompt Importing table caste...
+set feedback off
+set define off
+
+insert into caste (ENTITY_CODE, CASTE_CODE, CASTE_DESCN, CR_BY, CR_ON, MO_BY, MO_ON, AU_BY, AU_ON, TBA_KEY)
+values ('1', 'GEN', 'Others/General', 'SYSTEM', '29-10-2020', null, null, null, null, null);
+
+insert into caste (ENTITY_CODE, CASTE_CODE, CASTE_DESCN, CR_BY, CR_ON, MO_BY, MO_ON, AU_BY, AU_ON, TBA_KEY)
+values ('1', 'OBC', 'Other Backward Classes', 'SYSTEM', '29-10-2020', null, null, null, null, null);
+
+insert into caste (ENTITY_CODE, CASTE_CODE, CASTE_DESCN, CR_BY, CR_ON, MO_BY, MO_ON, AU_BY, AU_ON, TBA_KEY)
+values ('1', 'SC', 'Schedule Caste', 'SYSTEM', '29-10-2020', null, null, null, null, null);
+
+insert into caste (ENTITY_CODE, CASTE_CODE, CASTE_DESCN, CR_BY, CR_ON, MO_BY, MO_ON, AU_BY, AU_ON, TBA_KEY)
+values ('1', 'ST', 'Schedule Tribe', 'SYSTEM', '29-10-2020',, null, null, null, null, null);
+
+prompt Done.
+
+
+
+create table CASTE
+(
+  entity_code VARCHAR(12) not null,
+  caste_code  VARCHAR(20) not null,
+  caste_descn VARCHAR(500),
+  cr_by       VARCHAR(50) not null,
+  cr_on       DATETIME,
+  mo_by       VARCHAR2(50),
+  mo_on       DATETIME,
+  au_by       VARCHAR(50),
+  au_on       DATETIME,
+  tba_key     VARCHAR(25)
+);
+
+
+
+create table COMMUNITY
+(
+  entity_code     VARCHAR(12) not null,
+  community_code  VARCHAR(20) not null,
+  community_descn VARCHAR(500),
+  cr_by           VARCHAR(50) not null,
+  cr_on           DATETIME,
+  mo_by           VARCHAR(50),
+  mo_on           DATETIME
+  au_by           VARCHAR(50),
+  au_on           DATETIME,
+  tba_key         VARCHAR(25)
+);
+
+
+
+create table NOMINEETYPE
+(
+  nominee_code   VARCHAR(10) not null,
+  nominee_desc   VARCHAR(100),
+  nominee_type   CHAR(1) not null,
+  nominee_status CHAR(1)
+);
+
+
+
+create table STATE
+(
+  entity_code    VARCHAR(12) not null,
+  state_code     VARCHAR(50) not null,
+  state_descn    VARCHAR(100),
+  cr_by          VARCHAR(50) not null,
+  cr_on          DATETIME not null,
+  mo_by          VARCHAR(50),
+  mo_on          DATETIME,
+  au_by          VARCHAR(50),
+  au_on          DATETIME,
+  tba_key        VARCHAR(25),
+  state_sub_code VARCHAR(20)
+);
+
+
+///////Community/////////////////
+
+SELECT * FROM COMMUNITY WHERE ENTITY_CODE = P_ENTITY_CODE
+
+ 
+
+///////////Caste///////////////
+
+SELECT * FROM CASTE WHERE ENTITY_CODE = P_ENTITY_CODE
+
+ 
+
+/////////////Occupation//////////////
+
+SELECT * FROM OCCUPATION WHERE ENTITY_CODE = P_ENTITY_CODE
+
+ 
+
+///////////////////Country/////////////////////////
+
+SELECT * FROM COUNTRY WHERE ENTITY_CODE = P_ENTITY_CODE
+
+ 
+//////////////// Nominee /////////////////////
+
+SELECT * FROM NOMINEETYPE WHERE NOMINEE_TYPE = 'M'
+
+AND NOMINEE_STATUS = '1' ORDER BY NOMINEE_CODE
+
+
+
+-- Create table
+create table OCCUPATIONS
+(
+  occ_code     VARCHAR2(8) not null,
+  occ_descn    VARCHAR2(100),
+  occ_cbs_code VARCHAR2(8)
+)
+tablespace TBFES
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table OCCUPATIONS
+  add primary key (OCC_CODE)
+  using index 
+  tablespace TBFES
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+
+
+
+select * from incomeslabs;
+
+-- Create table
+create table INCOMESLAB
+(
+  incslab_code  VARCHAR2(8) not null,
+  incslab_descn VARCHAR2(100)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table INCOMESLAB
+  add primary key (INCSLAB_CODE)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+
+
+insert into incomeslab (INCSLAB_CODE, INCSLAB_DESCN)
+values ('01', '<1,00,000');
+
+insert into incomeslab (INCSLAB_CODE, INCSLAB_DESCN)
+values ('02', '1,00,000 to 5,00,000');
+
+insert into incomeslab (INCSLAB_CODE, INCSLAB_DESCN)
+values ('03', '5,00,000 to 10,00,000');
+
+insert into incomeslab (INCSLAB_CODE, INCSLAB_DESCN)
+values ('04', '>10,00,000');
+
+
+create table SBREQ_ACCOUNTDATA
+(
+  SBREQ_APP_NUM VARCHAR2(30) not null,
+  SBREQ_MARITAL_STATUS  	VARCHAR2(50),
+  SBREQ_OCCUPATION			 VARCHAR2(500),
+  SBREQ_ANNUAL_INCOME		 VARCHAR2(500),
+  SBREQ_CASTE 				VARCHAR2(500),
+  SBREQ_COMMUNITY 			VARCHAR2(500),
+  SBREQ_NOMINEE_NAME 		VARCHAR2(500),
+  SBREQ_RELATIONSHIP        VARCHAR2(500),
+  SBREQ_NOMINEE_ADDRESS		VARCHAR2(500),
+  SBREQ_CITY_CODE			 VARCHAR2(500),
+  SBREQ_BRN_NAME			 VARCHAR2(500),
+  CR_BY       VARCHAR2(50),
+  CR_ON       DATE,
+  MO_BY       VARCHAR(50),
+  MO_ON       DATE,
+  AU_BY       VARCHAR2(50),
+  AU_ON       DATE,
+  TBA_KEY     VARCHAR2(25)
+);
+
+
+INSERT INTO NOMINEETYPE (NOMINEE_CODE, NOMINEE_DESC, nominee_type, NOMINEE_STATUS) VALUES ('BIL', 'BROTHER IN LAW', 'M', '1');
+INSERT INTO NOMINEETYPE (NOMINEE_CODE, NOMINEE_DESC, NOMINEE_TYPE, NOMINEE_STATUS) VALUES ('BRO', 'BROTHER', 'M', '1');
+INSERT INTO NOMINEETYPE (NOMINEE_CODE, NOMINEE_DESC, NOMINEE_TYPE, NOMINEE_STATUS) VALUES ('DAU', 'DAUGHTER', 'M', '1');
+INSERT INTO NOMINEETYPE (NOMINEE_CODE, NOMINEE_DESC, NOMINEE_TYPE, NOMINEE_STATUS) VALUES ('FAT', 'FATHER', 'M', '1');
+INSERT INTO NOMINEETYPE (NOMINEE_CODE, NOMINEE_DESC, NOMINEE_TYPE, NOMINEE_STATUS) VALUES ('FIL', 'FATHER IN LAW', 'M', '1');
+INSERT INTO NOMINEETYPE (NOMINEE_CODE, NOMINEE_DESC, NOMINEE_TYPE, NOMINEE_STATUS) VALUES ('GDO', 'GRAND DAUGHTER' , 'M', '1');
+INSERT INTO NOMINEETYPE (NOMINEE_CODE, NOMINEE_DESC, NOMINEE_TYPE, NOMINEE_STATUS) VALUES ('GF', 'GRAND FATHER', 'M', '1');
+INSERT INTO NOMINEETYPE (NOMINEE_CODE, NOMINEE_DESC, NOMINEE_TYPE, NOMINEE_STATUS) VALUES ('GM', 'GRAND MOTHER', 'M', '1');
+INSERT INTO NOMINEETYPE (NOMINEE_CODE, NOMINEE_DESC, NOMINEE_TYPE, NOMINEE_STATUS) VALUES ('GO', 'GRAND SON', 'M', '1');
+INSERT INTO NOMINEETYPE (NOMINEE_CODE, NOMINEE_DESC, NOMINEE_TYPE, NOMINEE_STATUS) VALUES ('HUS', 'HUSBAND', 'M', '1');
+INSERT INTO NOMINEETYPE (NOMINEE_CODE, NOMINEE_DESC, NOMINEE_TYPE, NOMINEE_STATUS) VALUES ('MIL', 'MOTHER IN LAW', 'M', '1');
+INSERT INTO NOMINEETYPE (NOMINEE_CODE, NOMINEE_DESC, NOMINEE_TYPE, NOMINEE_STATUS) VALUES ('MOT', 'MOTHER', 'M', '1');
+INSERT INTO NOMINEETYPE (NOMINEE_CODE, NOMINEE_DESC, NOMINEE_TYPE, NOMINEE_STATUS) VALUES ('OTH', 'OTHERS', 'M', '1');
+INSERT INTO NOMINEETYPE (NOMINEE_CODE, NOMINEE_DESC, NOMINEE_TYPE, NOMINEE_STATUS) VALUES ('SELF', 'SELF', 'M', '1');
+INSERT INTO NOMINEETYPE (NOMINEE_CODE, NOMINEE_DESC, NOMINEE_TYPE, NOMINEE_STATUS) VALUES ('SIL', 'SISTER IN LAW', 'M', '1');
+INSERT INTO NOMINEETYPE (NOMINEE_CODE, NOMINEE_DESC, NOMINEE_TYPE, NOMINEE_STATUS) VALUES ('SIS', 'SISTER', 'M', '1');
+INSERT INTO NOMINEETYPE (NOMINEE_CODE, NOMINEE_DESC, NOMINEE_TYPE, NOMINEE_STATUS) VALUES ('SON', 'SON', 'M', '1');
+INSERT INTO NOMINEETYPE (NOMINEE_CODE, NOMINEE_DESC, NOMINEE_TYPE, NOMINEE_STATUS) VALUES ('WIF', 'WIFE', 'M', '1');
+	
+	
+CREATE TABLE SBREQ_ACCOUNTDATA
+(
+  SBREQ_APP_NUM VARCHAR(30) not null,
+  SBREQ_MARITAL_STATUS  VARCHAR(20),
+  SBREQ_OCCUPATION  VARCHAR(500),
+  SBREQ_ANNUAL_INCOME VARCHAR(500),
+  SBREQ_CASTE VARCHAR(500),
+  SBREQ_COMMUNITY VARCHAR(500),
+  SBREQ_NOMINEE_NAME VARCHAR(500),
+  SBREQ_RELATIONSHIP VARCHAR(500),
+  SBREQ_NOMINEE_ADDRESS VARCHAR(500),
+  SBREQ_STATE_CODE VARCHAR(500),
+  SBREQ_CITY_CODE VARCHAR(500),
+  SBREQ_BRN_NAME VARCHAR(500),
+  CR_BY       VARCHAR(50) not null,
+  CR_ON       DATETIME,
+  MO_BY       VARCHAR(50),
+  MO_ON       DATETIME,
+  AU_BY       VARCHAR(50),
+  AU_ON       DATETIME,
+  TBA_KEY     VARCHAR(25)
+);
+
+CREATE TABLE SBREQ_UPLOADS
+(
+SBREQ_APP_NUM  VARCHAR2(30) not null,
+DOC_CODE   VARCHAR(500) not null,
+DOC_DATA   VARCHAR(300),
+CR_ON	   DATE,
+CR_BY	   VARCHAR2(50),
+MO_ON	   DATE,
+MO_BY	   VARCHAR2(50),
+PRIMARY KEY(SBREQ_APP_NUM, DOC_CODE)
+);
